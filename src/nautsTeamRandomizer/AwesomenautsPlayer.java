@@ -1,5 +1,10 @@
 package nautsTeamRandomizer;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+import nautsTeamRandomizer.AwesomenautData.Awesomenaut;
+
 public class AwesomenautsPlayer {
 	private String playerName;
 	private boolean hasAllNauts;
@@ -27,5 +32,18 @@ public class AwesomenautsPlayer {
 	}
 	public void setHasNauts(boolean[] hasNauts) {
 		this.hasNauts = hasNauts;
+	}
+	public Awesomenaut getRandomNaut() {
+		Random random = new Random();
+		if(hasAllNauts) {
+			return AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+		}
+		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
+		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
+			if(hasNauts[i]) {
+				nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
+			}
+		}
+		return nautsOwned.get(random.nextInt(nautsOwned.size()));
 	}
 }

@@ -2,6 +2,7 @@ package nautsTeamRandomizer;
 
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class MainGUI extends JFrame {
@@ -11,6 +12,8 @@ public class MainGUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 6530073372542178903L;
 	private ArrayList<AwesomenautsPlayer> playerList;
+	private JButton createPlayer;
+	
 	public MainGUI() {
 		super("Awesomenaut Team Randomizer");
 		

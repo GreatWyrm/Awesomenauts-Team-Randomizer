@@ -7,4 +7,9 @@
  * @version 0.1
  *
  */
+/** TO-DO
+ * Implement Weekly free nauts
+ * 
+ * 
+ */
 package nautsTeamRandomizer;
