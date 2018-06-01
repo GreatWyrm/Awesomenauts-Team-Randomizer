@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import nautsTeamRandomizer.AwesomenautData.QiTara;
+
 public class MainGUI extends JFrame {
 
 	/**
