@@ -11,12 +11,6 @@ public class Awesomenaut {
 		alternateNames = altNames;
 		this.nautClass = nautClass;
 	}
-	// Constructor for no alternate names
-	public Awesomenaut(String name, String nautClass) {
-		nautName = name;
-		alternateNames = new String[]{}; // Is there a better way to do this?
-		this.nautClass = nautClass;
-	}
 	public String getNautClass() {
 		return nautClass;
 	}
