@@ -15,6 +15,11 @@ public class AwesomenautsPlayer {
 		hasAllNauts = false;
 		hasNauts = new boolean[AwesomenautsInfo.NUM_OF_NAUTS];
 	}
+	public AwesomenautsPlayer(String name, boolean hasAllNauts, boolean[] hasNauts) {
+		playerName = name;
+		this.hasAllNauts = hasAllNauts;
+		this.hasNauts = hasNauts;
+	}
 	public String getPlayerName() {
 		return playerName;
 	}
@@ -45,5 +50,16 @@ public class AwesomenautsPlayer {
 			}
 		}
 		return nautsOwned.get(random.nextInt(nautsOwned.size()));
+	}
+	public String toString() {
+		return playerName;
+	}
+	public String printAllData() {
+		String string = playerName + "\n";
+		string += "Has all Nauts: " + hasAllNauts + "\n";
+		for(int i = 0; i < hasNauts.length; i++) {
+			string += AwesomenautsInfo.AWESOMENAUTS[i].getNautName() + ": " + hasNauts[i] + "\n";
+		}
+		return string;
 	}
 }
