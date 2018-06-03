@@ -1,4 +1,4 @@
-package nautsTeamRandomizer;
+package nautsTeamRandomizer.Model;
 
 import nautsTeamRandomizer.AwesomenautData.*;
 

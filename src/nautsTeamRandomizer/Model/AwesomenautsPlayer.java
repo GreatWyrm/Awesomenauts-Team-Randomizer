@@ -1,4 +1,4 @@
-package nautsTeamRandomizer;
+package nautsTeamRandomizer.Model;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,7 +26,7 @@ public class AwesomenautsPlayer {
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
-	public boolean isHasAllNauts() {
+	public boolean getHasAllNauts() {
 		return hasAllNauts;
 	}
 	public void setHasAllNauts(boolean hasAllNauts) {
@@ -34,6 +34,9 @@ public class AwesomenautsPlayer {
 	}
 	public boolean[] getHasNauts() {
 		return hasNauts;
+	}
+	public boolean getHasNauts(int index) {
+		return hasNauts[index];
 	}
 	public void setHasNauts(boolean[] hasNauts) {
 		this.hasNauts = hasNauts;
