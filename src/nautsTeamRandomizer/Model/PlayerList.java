@@ -32,4 +32,7 @@ public class PlayerList {
 		}
 		return temp;
 	}
+	public boolean hasNoPlayers() {
+		return playerList.isEmpty();
+	}
 }

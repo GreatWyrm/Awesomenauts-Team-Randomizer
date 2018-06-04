@@ -54,6 +54,32 @@ public class AwesomenautsPlayer {
 		}
 		return nautsOwned.get(random.nextInt(nautsOwned.size()));
 	}
+	public Awesomenaut getRandomNaut(Awesomenaut restrictedNaut) {
+		Random random = new Random();
+		if(hasAllNauts) {
+			return AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+		}
+		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
+		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
+			if(hasNauts[i] && !AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut)) {
+				nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
+			}
+		}
+		return nautsOwned.get(random.nextInt(nautsOwned.size()));
+	}
+	public Awesomenaut getRandomNaut(Awesomenaut restrictedNaut0, Awesomenaut restrictedNaut1) {
+		Random random = new Random();
+		if(hasAllNauts) {
+			return AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+		}
+		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
+		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
+			if(hasNauts[i] && (!AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut0) || !AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut1))) {
+				nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
+			}
+		}
+		return nautsOwned.get(random.nextInt(nautsOwned.size()));
+	}
 	public String toString() {
 		return playerName;
 	}

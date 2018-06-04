@@ -37,6 +37,15 @@ public class CreatePlayerGUI extends JFrame{
         otherPanel.add(playerNameField);
 		otherPanel.add(hasAllNautsBox);
 		otherPanel.add(createPlayer);
+		hasAllNautsBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < hasNautsBoxes.length; i++) {
+					hasNautsBoxes[i].setSelected(true); 
+				}
+				
+			}
+		});
 		createPlayer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -59,6 +68,8 @@ public class CreatePlayerGUI extends JFrame{
 			hasNautsBoxes[i] = new JCheckBox(AwesomenautsInfo.AWESOMENAUTS[i].getNautName());
 			nautsPanel.add(hasNautsBoxes[i]);
 		}
+		playerNameField.requestFocus();
+		playerNameField.selectAll();
 		setSize(800, 800);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
