@@ -5,10 +5,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -48,6 +46,9 @@ public class MainGUI extends JFrame {
 	private AwesomenautsPlayer player0;
 	private AwesomenautsPlayer player1;
 	private AwesomenautsPlayer player2;
+	private JButton nautName0 = new JButton("Enter 'Naut Name");
+	private JButton nautName1 = new JButton("Enter 'Naut Name");
+	private JButton generateTeam = new JButton("Randomize!");
 	
 	public MainGUI(TeamRandomizerController parent) {
 		super("Awesomenaut Team Randomizer");
@@ -78,18 +79,24 @@ public class MainGUI extends JFrame {
 		generationPanel.add(player0Field);
 		generationPanel.add(player1Field);
 		generationPanel.add(player2Field);
+		generationPanel.add(nautName0);
+		generationPanel.add(nautName1);
+		generationPanel.add(generateTeam);
 		generationPanel.setLayout(null);
 		teamLabel.setBounds(110, 0, 200, 50);
 		optionsLabel.setBounds(0, 100, 200, 50);
 		optionsLabel0.setBounds(50, 120, 500, 50);
 		optionsLabel1.setBounds(50, 140, 400, 50);
 		optionsLabel2.setBounds(50, 160, 300, 50);
-		playerSelector0.setBounds(30, 400, 120, 25);
-		playerSelector1.setBounds(180, 500, 120, 25);
-		playerSelector2.setBounds(330, 400, 120, 25);
-		player0Field.setBounds(30, 450, 120, 25);
-		player1Field.setBounds(180, 550, 120, 25);
-		player2Field.setBounds(330, 450, 120, 25);
+		playerSelector0.setBounds(30, 400, 140, 25);
+		playerSelector1.setBounds(180, 520, 140, 25);
+		playerSelector2.setBounds(330, 400, 140, 25);
+		player0Field.setBounds(30, 430, 140, 25);
+		player1Field.setBounds(180, 550, 140, 25);
+		player2Field.setBounds(330, 430, 140, 25);
+		nautName0.setBounds(30, 460, 140, 25);
+		nautName1.setBounds(330, 460, 140, 25);
+		generateTeam.setBounds(180, 700, 160, 40);
 
 		// Set the List options
 		playerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -147,7 +154,65 @@ public class MainGUI extends JFrame {
 				parentController.selectPlayer(2);
 			}
 		});
-		// The preset layouts are annoying to work with
+		nautName0.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String result = parentController.addRestrictedNaut1(player0Field.getText());
+				if(!result.equals("")) {
+					player0Field.setText(result);
+					player0Field.setEditable(false);
+				}
+			}
+		});
+		nautName1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String result = parentController.addRestrictedNaut1(player2Field.getText());
+				if(!result.equals("")) {
+					player2Field.setText(result);
+					player2Field.setEditable(false);
+				}
+			}
+		});
+		generateTeam.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(player0 == null && player1 == null && player2 == null) {
+					JOptionPane.showMessageDialog(null, "You have not made any selections!", "Cannot Generate Team",
+							JOptionPane.WARNING_MESSAGE);
+				} else {
+					if(player0 == null) {
+						if(player1 == null) {
+							// randomize player2
+						} else if(player2 == null) {
+							// Randomzie player1
+						} else {
+							// Randomize player1 and player2
+						}
+					} else if(player1 == null) {
+						if(player0 == null) {
+							// randomize player2
+						} else if(player2 == null) {
+							// Randomzie player0
+						} else {
+							// Randomize player0 and player2
+						}
+					} else if(player2 == null) {
+						if(player0 == null) {
+							// randomize player1
+						} else if(player1 == null) {
+							// Randomzie player0
+						} else {
+							// Randomize player0 and player1
+						}
+					} else {
+						// Randomzie all three players
+					}
+					
+				}
+				
+			}
+		});
 		setLayout(new GridLayout());
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -165,12 +230,27 @@ public class MainGUI extends JFrame {
 		if(index == 0) {
 			player0 = player;
 			player0Field.setText(player0.getPlayerName());
+			player0Field.setEditable(false);
 		} else if(index == 1) {
 			player1 = player;
 			player1Field.setText(player1.getPlayerName());
+			player1Field.setEditable(false);
 		} else if(index == 2) {
 			player2 = player;
 			player2Field.setText(player2.getPlayerName());
+			player2Field.setEditable(false);
 		}
+	}
+	private void reset() {
+		player0 = null;
+		player1 = null;
+		player2 = null;
+		player0Field.setEditable(true);
+		player1Field.setEditable(true);
+		player2Field.setEditable(true);
+		player0Field.setText("");
+		player1Field.setText("");
+		player2Field.setText("");
+		parentController.clearSelection();
 	}
 }

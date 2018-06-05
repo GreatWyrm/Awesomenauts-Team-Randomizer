@@ -57,7 +57,11 @@ public class AwesomenautsPlayer {
 	public Awesomenaut getRandomNaut(Awesomenaut restrictedNaut) {
 		Random random = new Random();
 		if(hasAllNauts) {
-			return AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+			Awesomenaut chosen = AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+			while(chosen.equals(restrictedNaut) ) {
+				chosen = AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+			}
+			return chosen;
 		}
 		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
@@ -70,7 +74,11 @@ public class AwesomenautsPlayer {
 	public Awesomenaut getRandomNaut(Awesomenaut restrictedNaut0, Awesomenaut restrictedNaut1) {
 		Random random = new Random();
 		if(hasAllNauts) {
-			return AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+			Awesomenaut chosen = AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+			while(chosen.equals(restrictedNaut0) || chosen.equals(restrictedNaut1) ) {
+				chosen = AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+			}
+			return chosen;
 		}
 		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
