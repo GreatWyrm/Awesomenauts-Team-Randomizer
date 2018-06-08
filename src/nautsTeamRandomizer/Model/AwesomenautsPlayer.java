@@ -82,7 +82,7 @@ public class AwesomenautsPlayer {
 		}
 		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
-			if(hasNauts[i] && (!AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut0) || !AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut1))) {
+			if(hasNauts[i] && (!AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut0) && !AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut1))) {
 				nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
 			}
 		}

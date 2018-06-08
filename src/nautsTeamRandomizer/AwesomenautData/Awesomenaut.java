@@ -28,4 +28,7 @@ public class Awesomenaut {
 		}
 		return false;
 	}
+	public String toString() {
+		return getNautName();
+	}
 }

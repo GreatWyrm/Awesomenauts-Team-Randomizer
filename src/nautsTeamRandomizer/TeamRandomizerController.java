@@ -7,6 +7,7 @@ import nautsTeamRandomizer.Model.AwesomenautsInfo;
 import nautsTeamRandomizer.Model.AwesomenautsPlayer;
 import nautsTeamRandomizer.Model.PlayerList;
 import nautsTeamRandomizer.View.CreatePlayerGUI;
+import nautsTeamRandomizer.View.DisplayTeamGUI;
 import nautsTeamRandomizer.View.EditPlayerGUI;
 import nautsTeamRandomizer.View.MainGUI;
 import nautsTeamRandomizer.View.PlayerSelectionGUI;
@@ -19,6 +20,7 @@ public class TeamRandomizerController {
 	private PlayerSelectionGUI selectPlayerGUI;
 	private Awesomenaut restrictedNaut0;
 	private Awesomenaut restrictedNaut1;
+	private DisplayTeamGUI displayTeamGUI;
 	
 	public TeamRandomizerController() {
 		mainGUI = new MainGUI(this);
@@ -81,32 +83,41 @@ public class TeamRandomizerController {
 		restrictedNaut1 = null;
 	}
 	public void randomizeTeam(AwesomenautsPlayer player0) {
+		Awesomenaut nautPlayer0;
 		if(restrictedNaut0 == null && restrictedNaut1 == null) {
-			Awesomenaut nautPlayer0 = player0.getRandomNaut();
+			nautPlayer0 = player0.getRandomNaut();
 		} else if(restrictedNaut0 == null) {
-			Awesomenaut nautPlayer0 = player0.getRandomNaut(restrictedNaut1);
+			nautPlayer0 = player0.getRandomNaut(restrictedNaut1);
 		} else if(restrictedNaut1 == null) {
-			Awesomenaut nautPlayer0 = player0.getRandomNaut(restrictedNaut0);
+			nautPlayer0 = player0.getRandomNaut(restrictedNaut0);
 		} else {
-			Awesomenaut nautPlayer0 = player0.getRandomNaut(restrictedNaut0, restrictedNaut1);
+			nautPlayer0 = player0.getRandomNaut(restrictedNaut0, restrictedNaut1);
 		}
+		
 	}
 	public void randomizeTeam(AwesomenautsPlayer player0, AwesomenautsPlayer player1) {
+		Awesomenaut nautPlayer0;
+		Awesomenaut nautPlayer1;
 		if(restrictedNaut0 == null && restrictedNaut1 == null) {
-			Awesomenaut nautPlayer0 = player0.getRandomNaut();
-			Awesomenaut nautPlayer1 = player1.getRandomNaut(nautPlayer0);
+			nautPlayer0 = player0.getRandomNaut();
+			nautPlayer1 = player1.getRandomNaut(nautPlayer0);
+			
 		} else if(restrictedNaut1 == null) {
-			Awesomenaut nautPlayer0 = player0.getRandomNaut(restrictedNaut0);
-			Awesomenaut nautPlayer1 = player1.getRandomNaut(nautPlayer0, restrictedNaut0);
+			nautPlayer0 = player0.getRandomNaut(restrictedNaut0);
+			nautPlayer1 = player1.getRandomNaut(nautPlayer0, restrictedNaut0);
 		} else {
-			Awesomenaut nautPlayer0 = player0.getRandomNaut(restrictedNaut1);
-			Awesomenaut nautPlayer1 = player1.getRandomNaut(nautPlayer0, restrictedNaut1);
+			nautPlayer0 = player0.getRandomNaut(restrictedNaut1);
+			nautPlayer1 = player1.getRandomNaut(nautPlayer0, restrictedNaut1);
 		}
+		
 	}
 	public void randomizeTeam(AwesomenautsPlayer player0, AwesomenautsPlayer player1, AwesomenautsPlayer player2) {
 		Awesomenaut nautPlayer0 = player0.getRandomNaut();
 		Awesomenaut nautPlayer1 = player1.getRandomNaut(nautPlayer0);
 		Awesomenaut nautPlayer2 = player2.getRandomNaut(nautPlayer0, nautPlayer1);
+		Awesomenaut[] nauts = {nautPlayer0, nautPlayer1, nautPlayer2};
+		AwesomenautsPlayer[] players = {player0, player1, player2};
+		displayTeamGUI = new DisplayTeamGUI(nauts,  players);
 	}
 	public static void main(String[] args) {
 		TeamRandomizerController controller = new TeamRandomizerController();
