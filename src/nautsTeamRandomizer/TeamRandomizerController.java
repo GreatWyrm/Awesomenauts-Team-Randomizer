@@ -82,44 +82,67 @@ public class TeamRandomizerController {
 		restrictedNaut0 = null;
 		restrictedNaut1 = null;
 	}
-	public void randomizeTeam(AwesomenautsPlayer player0) {
-		Awesomenaut nautPlayer0;
+	public void randomizeTeam(AwesomenautsPlayer[] players) {
+		Awesomenaut[] nauts = new Awesomenaut[3];
 		if(restrictedNaut0 == null && restrictedNaut1 == null) {
-			nautPlayer0 = player0.getRandomNaut();
+			if(!(players[0] == null)) {
+				nauts[0] = players[0].getRandomNaut();
+				if(!(players[1] == null)) {
+					nauts[1] = players[1].getRandomNaut(nauts[0]);
+					if(!(players[2] == null)) {
+						nauts[2] = players[2].getRandomNaut(nauts[0], nauts[1]);
+					}
+				} else {
+					if(!(players[2] == null)) {
+						nauts[2] = players[2].getRandomNaut(nauts[0]);
+					}
+				}
+			} else {
+				if(!(players[1] == null)) {
+					nauts[1] = players[1].getRandomNaut();
+					if(!(players[2] == null)) {
+						nauts[2] = players[2].getRandomNaut(nauts[1]);
+					}
+				} else {
+					if(!(players[2] == null)) {
+						nauts[2] = players[2].getRandomNaut();
+					}
+				}
+			}
+		} else if(restrictedNaut1 == null) {
+			nauts[0] = restrictedNaut0;
+			if(!(players[1] == null)) {
+				nauts[1] = players[1].getRandomNaut(restrictedNaut0);
+				if(!(players[2] == null)) {
+					nauts[2] = players[2].getRandomNaut(restrictedNaut0, nauts[1]);
+				}
+			} else {
+				if(!(players[2] == null)) {
+					nauts[2] = players[2].getRandomNaut(restrictedNaut0);
+				}
+			}
 		} else if(restrictedNaut0 == null) {
-			nautPlayer0 = player0.getRandomNaut(restrictedNaut1);
-		} else if(restrictedNaut1 == null) {
-			nautPlayer0 = player0.getRandomNaut(restrictedNaut0);
+			nauts[2] = restrictedNaut1;
+			if(!(players[0] == null)) {
+				nauts[0] = players[0].getRandomNaut(restrictedNaut1);
+				if(!(players[1] == null)) {
+					nauts[1] = players[1].getRandomNaut(restrictedNaut1, nauts[0]);
+				}
+			} else {
+				if(!(players[1] == null)) {
+					nauts[1] = players[1].getRandomNaut(restrictedNaut1);
+				}
+			}
 		} else {
-			nautPlayer0 = player0.getRandomNaut(restrictedNaut0, restrictedNaut1);
+			nauts[0] = restrictedNaut0;
+			nauts[2] = restrictedNaut1;
+			if(!(players[1] == null)) {
+				nauts[1] = players[1].getRandomNaut(restrictedNaut0, restrictedNaut1);
+			}
 		}
-		
-	}
-	public void randomizeTeam(AwesomenautsPlayer player0, AwesomenautsPlayer player1) {
-		Awesomenaut nautPlayer0;
-		Awesomenaut nautPlayer1;
-		if(restrictedNaut0 == null && restrictedNaut1 == null) {
-			nautPlayer0 = player0.getRandomNaut();
-			nautPlayer1 = player1.getRandomNaut(nautPlayer0);
-			
-		} else if(restrictedNaut1 == null) {
-			nautPlayer0 = player0.getRandomNaut(restrictedNaut0);
-			nautPlayer1 = player1.getRandomNaut(nautPlayer0, restrictedNaut0);
-		} else {
-			nautPlayer0 = player0.getRandomNaut(restrictedNaut1);
-			nautPlayer1 = player1.getRandomNaut(nautPlayer0, restrictedNaut1);
-		}
-		
-	}
-	public void randomizeTeam(AwesomenautsPlayer player0, AwesomenautsPlayer player1, AwesomenautsPlayer player2) {
-		Awesomenaut nautPlayer0 = player0.getRandomNaut();
-		Awesomenaut nautPlayer1 = player1.getRandomNaut(nautPlayer0);
-		Awesomenaut nautPlayer2 = player2.getRandomNaut(nautPlayer0, nautPlayer1);
-		Awesomenaut[] nauts = {nautPlayer0, nautPlayer1, nautPlayer2};
-		AwesomenautsPlayer[] players = {player0, player1, player2};
-		displayTeamGUI = new DisplayTeamGUI(nauts,  players);
+		displayTeamGUI = new DisplayTeamGUI(nauts, players);
 	}
 	public static void main(String[] args) {
-		TeamRandomizerController controller = new TeamRandomizerController();
+			TeamRandomizerController controller = new TeamRandomizerController();
 	}
 }

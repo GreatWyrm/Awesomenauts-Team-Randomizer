@@ -180,40 +180,7 @@ public class MainGUI extends JFrame {
 		generateTeam.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(players[0] == null && players[1] == null && players[2] == null) {
-					JOptionPane.showMessageDialog(null, "You have not made any selections!", "Cannot Generate Team",
-							JOptionPane.WARNING_MESSAGE);
-				} else {
-					if(players[0] == null) {
-						if(players[1] == null) {
-							parentController.randomizeTeam(players[2]);
-						} else if(players[2] == null) {
-							parentController.randomizeTeam(players[1]);
-						} else {
-							parentController.randomizeTeam(players[1], players[2]);
-						}
-					} else if(players[1] == null) {
-						if(players[0] == null) {
-							parentController.randomizeTeam(players[2]);
-						} else if(players[2] == null) {
-							parentController.randomizeTeam(players[0]);
-						} else {
-							parentController.randomizeTeam(players[0], players[2]);
-						}
-					} else if(players[2] == null) {
-						if(players[0] == null) {
-							parentController.randomizeTeam(players[1]);
-						} else if(players[1] == null) {
-							parentController.randomizeTeam(players[0]);
-						} else {
-							parentController.randomizeTeam(players[0], players[1]);
-						}
-					} else {
-						parentController.randomizeTeam(players[0], players[1], players[2]);
-					}
-					
-				}
-				
+					parentController.randomizeTeam(players);	
 			}
 		});
 		clear.addActionListener(new ActionListener() {
@@ -226,8 +193,8 @@ public class MainGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-				
+				// Save the player data
+				System.exit(0);		
 			}
 		});
 		setLayout(new GridLayout());

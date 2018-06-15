@@ -1,8 +1,9 @@
 package nautsTeamRandomizer.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PlayerList {
+public class PlayerList implements Serializable{
 	private ArrayList<AwesomenautsPlayer> playerList;
 	
 	public PlayerList() {
