@@ -52,16 +52,21 @@ public class AwesomenautsPlayer {
 				nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
 			}
 		}
+		if(nautsOwned.isEmpty()) {
+			return null;
+		}
 		return nautsOwned.get(random.nextInt(nautsOwned.size()));
 	}
 	public Awesomenaut getRandomNaut(Awesomenaut restrictedNaut) {
 		Random random = new Random();
 		if(hasAllNauts) {
-			Awesomenaut chosen = AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
-			while(chosen.equals(restrictedNaut) ) {
-				chosen = AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+			ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
+			for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
+				if(!(AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut))) {
+					nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
+				}
 			}
-			return chosen;
+			return nautsOwned.get(random.nextInt(nautsOwned.size()));
 		}
 		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
@@ -69,22 +74,30 @@ public class AwesomenautsPlayer {
 				nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
 			}
 		}
+		if(nautsOwned.isEmpty()) {
+			return null;
+		}
 		return nautsOwned.get(random.nextInt(nautsOwned.size()));
 	}
 	public Awesomenaut getRandomNaut(Awesomenaut restrictedNaut0, Awesomenaut restrictedNaut1) {
 		Random random = new Random();
 		if(hasAllNauts) {
-			Awesomenaut chosen = AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
-			while(chosen.equals(restrictedNaut0) || chosen.equals(restrictedNaut1) ) {
-				chosen = AwesomenautsInfo.AWESOMENAUTS[random.nextInt(AwesomenautsInfo.NUM_OF_NAUTS)];
+			ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
+			for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
+				if(!(AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut0) || (AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut1)))) {
+					nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
+				}
 			}
-			return chosen;
+			return nautsOwned.get(random.nextInt(nautsOwned.size()));
 		}
 		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			if(hasNauts[i] && (!AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut0) && !AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut1))) {
 				nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
 			}
+		}
+		if(nautsOwned.isEmpty()) {
+			return null;
 		}
 		return nautsOwned.get(random.nextInt(nautsOwned.size()));
 	}
