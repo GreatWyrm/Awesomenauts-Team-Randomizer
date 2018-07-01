@@ -10,7 +10,7 @@ class TestLoadingAndSaving {
 	void test() {
 		TeamRandomizerController trc = new TeamRandomizerController();
 		
-		trc.load("my_data");
+		trc.save("my_data");
 	}
 
 }

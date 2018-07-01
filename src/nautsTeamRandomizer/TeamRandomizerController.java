@@ -142,6 +142,7 @@ public class TeamRandomizerController {
 		}
 		displayTeamGUI = new DisplayTeamGUI(nauts, players);
 	}
+	public void save() { /* add save code here */ }
 	public static void main(String[] args) {
 			TeamRandomizerController controller = new TeamRandomizerController();
 	}
