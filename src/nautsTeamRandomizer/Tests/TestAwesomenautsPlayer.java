@@ -4,9 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import nautsTeamRandomizer.TeamRandomizerController;
 import nautsTeamRandomizer.Model.AwesomenautsPlayer;
 
-class TestAwesomenotsPlayer {
+class TestAwesomenautsPlayer {
 
 	@Test
 	void testNewPlayerHasLessThanAllNauts() {
@@ -43,5 +44,16 @@ class TestAwesomenotsPlayer {
 				false, false, false, false, false, false, false, false, false};
 		ap.setHasNauts(b);
 		assertEquals("bob: 2", ap.encode());
+	}
+	@Test
+	void testCanDecodeFromString() {
+		TeamRandomizerController controller = new TeamRandomizerController();
+		AwesomenautsPlayer ap = new AwesomenautsPlayer("bob");
+		boolean b[] = {false, false, false, false, false, false, false, false, false, false, false, false,
+				false, false, false, false, false, false, false, false, false, false, false, false, false,
+				false, false, false, false, true, false, false, false, false};
+		ap.setHasNauts(b);
+		controller.decodePlayer("bob: 29");
+		assertEquals(ap, controller.getPlayer(0));
 	}
 }

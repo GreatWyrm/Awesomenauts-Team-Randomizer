@@ -15,6 +15,27 @@ public class AwesomenautsPlayer {
 		hasAllNauts = false;
 		hasNauts = new boolean[AwesomenautsInfo.NUM_OF_NAUTS];
 	}
+	// Constructor to decode player
+	public AwesomenautsPlayer(String name, String nautsOwned) {
+		playerName = name;
+		hasNauts = new boolean[AwesomenautsInfo.NUM_OF_NAUTS];
+		if(nautsOwned.equals("A")) {
+			hasAllNauts = true;
+		} else {
+			hasAllNauts = false;
+			int i = nautsOwned.indexOf(" ");
+			while(i != -1) {
+				String naut = nautsOwned.substring(0, i);
+				nautsOwned = nautsOwned.substring(i);
+				if(naut.equals(" ") || naut.equals("")) {
+					continue;
+				}
+				int index = Integer.parseInt(naut);
+				hasNauts[index] = true;
+				i = nautsOwned.indexOf(" ");
+			}
+		}
+	}
 	public AwesomenautsPlayer(String name, boolean hasAllNauts, boolean[] hasNauts) {
 		playerName = name;
 		this.hasAllNauts = hasAllNauts;

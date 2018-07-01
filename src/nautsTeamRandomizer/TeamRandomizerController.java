@@ -43,6 +43,9 @@ public class TeamRandomizerController {
 	public void edit(int index) {
 		editPlayerGUI = new EditPlayerGUI(this, playerList.getPlayer(index), index);
 	}
+	public AwesomenautsPlayer getPlayer(int index) {
+		return playerList.getPlayer(index);
+	}
 	public void editPlayer(AwesomenautsPlayer player, int index) {
 		playerList.overwritePlayer(player, index);
 		mainGUI.updatePlayerList(playerList.getPlayerList());
@@ -147,6 +150,13 @@ public class TeamRandomizerController {
 	public void save(String filename) {
 		System.out.println("Attempting to save to " + filename);
 		/* add save code here */
+	}
+	public void decodePlayer(String player) {
+		int split = player.lastIndexOf(':');
+		String name = player.substring(0, split);
+		String nauts = player.substring(split + 1);
+		AwesomenautsPlayer aPlayer = new AwesomenautsPlayer(name, nauts);
+		playerList.addPlayer(aPlayer);
 	}
 	public void displayMainScreen() {
 		mainGUI.displayMainScren();
