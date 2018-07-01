@@ -2,6 +2,8 @@ package nautsTeamRandomizer;
 
 import javax.swing.JOptionPane;
 
+import org.omg.CORBA.SystemException;
+
 import nautsTeamRandomizer.AwesomenautData.Awesomenaut;
 import nautsTeamRandomizer.Model.AwesomenautsInfo;
 import nautsTeamRandomizer.Model.AwesomenautsPlayer;
@@ -142,8 +144,16 @@ public class TeamRandomizerController {
 		}
 		displayTeamGUI = new DisplayTeamGUI(nauts, players);
 	}
-	public void save() { /* add save code here */ }
+	public void save(String filename) {
+		System.out.println("Attempting to save to " + filename);
+		/* add save code here */
+	}
+	public void displayMainScreen() {
+		mainGUI.displayMainScren();
+	}
 	public static void main(String[] args) {
 			TeamRandomizerController controller = new TeamRandomizerController();
+			
+			controller.displayMainScreen();
 	}
 }

@@ -198,9 +198,12 @@ public class MainGUI extends JFrame {
 			}
 		});
 		setLayout(new GridLayout());
+		setSize(1200, 800);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(1200, 800);
+	}
+	
+	public void displayMainScren() {
 		setVisible(true);
 	}
 
