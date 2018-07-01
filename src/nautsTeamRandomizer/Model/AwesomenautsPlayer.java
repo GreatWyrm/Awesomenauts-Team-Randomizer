@@ -112,4 +112,17 @@ public class AwesomenautsPlayer {
 		}
 		return string;
 	}
+	
+	public String encode() {
+		String result = this.playerName + ":";
+		if (this.hasAllNauts) {
+			return result + "A";
+		}
+		for (int i = 0; i < this.hasNauts.length; i++) {
+			if (this.hasNauts[i]) {
+				result += " " + i;
+			}
+		}
+		return result;
+	}
 }

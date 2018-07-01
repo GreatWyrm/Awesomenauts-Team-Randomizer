@@ -4,6 +4,7 @@ public class Awesomenaut {
 	private String nautName;
 	private String[] alternateNames;
 	private String nautClass;
+	private int nautID;
 	
 	// Regular Constructor
 	public Awesomenaut(String name, String[] altNames, String nautClass) {
@@ -30,5 +31,11 @@ public class Awesomenaut {
 	}
 	public String toString() {
 		return getNautName();
+	}
+	public void setID(int i) {
+		this.nautID = i;
+	}
+	public int getID() {
+		return this.nautID;
 	}
 }

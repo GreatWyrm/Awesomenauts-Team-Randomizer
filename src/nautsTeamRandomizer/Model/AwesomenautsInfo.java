@@ -37,6 +37,19 @@ import nautsTeamRandomizer.AwesomenautData.Voltar;
 import nautsTeamRandomizer.AwesomenautData.Yuri;
 
 public class AwesomenautsInfo {
-	public static final Awesomenaut[] AWESOMENAUTS = {new Froggy_G(), new Sheriff_Lonestar(), new Leon_Chameleon(), new Scoop(), new Gnaw(), new Raelynn(), new Ayla(), new Clunk(), new Voltar(), new Coco_Nebulon(), new Skolldir(), new Yuri(), new Derpl_Zork(), new Vinne_And_Spike(), new Genji(), new Admiral_Swiggins(), new Rocco(), new Ksenia(), new Ix_the_Interloper(), new Ted_McPain(), new Penny_Fox(), new Sentry_X_58(), new Skree(), new Nibbs(), new Professor_Yoolip(), new Chucho_Krokk(), new Jimmy_and_the_LUX5000(), new Max_Focus(), new Deadlift(), new Dizzy(), new Smiles(), new Commander_Rocket(), new QiTara(), new Snork_Gunk()};
+	public static final Awesomenaut[] AWESOMENAUTS = {new Froggy_G(),
+			new Sheriff_Lonestar(), new Leon_Chameleon(), new Scoop(), new Gnaw(), new Raelynn(),
+			new Ayla(), new Clunk(), new Voltar(), new Coco_Nebulon(), new Skolldir(), new Yuri(),
+			new Derpl_Zork(), new Vinne_And_Spike(), new Genji(), new Admiral_Swiggins(), new Rocco(),
+			new Ksenia(), new Ix_the_Interloper(), new Ted_McPain(), new Penny_Fox(), new Sentry_X_58(),
+			new Skree(), new Nibbs(), new Professor_Yoolip(), new Chucho_Krokk(), new Jimmy_and_the_LUX5000(),
+			new Max_Focus(), new Deadlift(), new Dizzy(), new Smiles(), new Commander_Rocket(), new QiTara(),
+			new Snork_Gunk()};
 	public static final int NUM_OF_NAUTS = AWESOMENAUTS.length;
+	
+	static {
+		for (int i = 0; i < NUM_OF_NAUTS; i++) {
+			AWESOMENAUTS[i].setID(i);
+		}
+	}
 }
