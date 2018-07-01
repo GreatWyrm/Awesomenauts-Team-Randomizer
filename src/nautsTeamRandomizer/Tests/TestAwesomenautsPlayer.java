@@ -46,14 +46,25 @@ class TestAwesomenautsPlayer {
 		assertEquals("bob: 2", ap.encode());
 	}
 	@Test
-	void testCanDecodeFromString() {
+	void testCanDecodeNameFromString() {
 		TeamRandomizerController controller = new TeamRandomizerController();
 		AwesomenautsPlayer ap = new AwesomenautsPlayer("bob");
 		boolean b[] = {false, false, false, false, false, false, false, false, false, false, false, false,
-				false, false, false, false, false, false, false, false, false, false, false, false, false,
+				false, false, false, true, false, false, false, false, false, false, false, false, false,
 				false, false, false, false, true, false, false, false, false};
 		ap.setHasNauts(b);
-		controller.decodePlayer("bob: 29");
-		assertEquals(ap, controller.getPlayer(0));
+		controller.decodePlayer("bob: 15 29");
+		assertEquals(ap.getPlayerName(), controller.getPlayer(0).getPlayerName());
+	}
+	@Test
+	void testCanDecodeNautsFromString() {
+		TeamRandomizerController controller = new TeamRandomizerController();
+		AwesomenautsPlayer ap = new AwesomenautsPlayer("bob");
+		boolean b[] = {false, false, false, false, false, false, false, false, false, false, false, false,
+				false, false, false, true, false, false, false, false, false, false, false, false, false,
+				false, false, false, false, true, false, false, false, false};
+		ap.setHasNauts(b);
+		controller.decodePlayer("bob: 15 29");
+		assertArrayEquals(ap.getHasNauts(), controller.getPlayer(0).getHasNauts());
 	}
 }

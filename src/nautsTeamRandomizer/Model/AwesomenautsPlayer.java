@@ -23,17 +23,20 @@ public class AwesomenautsPlayer {
 			hasAllNauts = true;
 		} else {
 			hasAllNauts = false;
-			int i = nautsOwned.indexOf(" ");
+		//	nautsOwned = nautsOwned.substring(1);
+			int i = 0;
 			while(i != -1) {
 				String naut = nautsOwned.substring(0, i);
-				nautsOwned = nautsOwned.substring(i);
+				nautsOwned = nautsOwned.substring(i + 1);
+				i = nautsOwned.indexOf(" ");
 				if(naut.equals(" ") || naut.equals("")) {
 					continue;
 				}
 				int index = Integer.parseInt(naut);
 				hasNauts[index] = true;
-				i = nautsOwned.indexOf(" ");
 			}
+			int index = Integer.parseInt(nautsOwned);
+			hasNauts[index] = true;
 		}
 	}
 	public AwesomenautsPlayer(String name, boolean hasAllNauts, boolean[] hasNauts) {
