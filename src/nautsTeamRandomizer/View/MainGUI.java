@@ -193,7 +193,7 @@ public class MainGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Save the player data
+				parentController.save();
 				System.exit(0);		
 			}
 		});

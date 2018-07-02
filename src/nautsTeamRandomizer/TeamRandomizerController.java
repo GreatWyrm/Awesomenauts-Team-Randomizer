@@ -1,5 +1,11 @@
 package nautsTeamRandomizer;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 import org.omg.CORBA.SystemException;
@@ -23,6 +29,7 @@ public class TeamRandomizerController {
 	private Awesomenaut restrictedNaut0;
 	private Awesomenaut restrictedNaut1;
 	private DisplayTeamGUI displayTeamGUI;
+	private final String FILE_NAME = "playerdata.txt";
 	
 	public TeamRandomizerController() {
 		mainGUI = new MainGUI(this);
@@ -148,22 +155,55 @@ public class TeamRandomizerController {
 		displayTeamGUI = new DisplayTeamGUI(nauts, players);
 	}
 	public void save(String filename) {
-		System.out.println("Attempting to save to " + filename);
-		/* add save code here */
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+			AwesomenautsPlayer[] players = playerList.getPlayerList();
+			for(int i = 0; i < players.length; i++) {
+				writer.write(players[i].encode() + "\n");
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	public void decodePlayer(String player) {
+	public void save() {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME));
+			AwesomenautsPlayer[] players = playerList.getPlayerList();
+			for(int i = 0; i < players.length; i++) {
+				writer.write(players[i].encode() + "\n");
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void load() {
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
+			String line = reader.readLine();
+			while(line != null) {
+				playerList.addPlayer(decodePlayer(line));
+				line = reader.readLine();
+			}
+			reader.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		mainGUI.updatePlayerList(playerList.getPlayerList());
+	}
+	public AwesomenautsPlayer decodePlayer(String player) {
 		int split = player.lastIndexOf(':');
 		String name = player.substring(0, split);
 		String nauts = player.substring(split + 1);
-		AwesomenautsPlayer aPlayer = new AwesomenautsPlayer(name, nauts);
-		playerList.addPlayer(aPlayer);
+		return new AwesomenautsPlayer(name, nauts);
 	}
 	public void displayMainScreen() {
 		mainGUI.displayMainScren();
 	}
 	public static void main(String[] args) {
 			TeamRandomizerController controller = new TeamRandomizerController();
-			
+			controller.load();
 			controller.displayMainScreen();
 	}
 }
