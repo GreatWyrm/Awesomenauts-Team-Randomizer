@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 import org.omg.CORBA.SystemException;
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 import nautsTeamRandomizer.AwesomenautData.Awesomenaut;
 import nautsTeamRandomizer.Model.AwesomenautsInfo;
@@ -52,6 +53,9 @@ public class TeamRandomizerController {
 	}
 	public AwesomenautsPlayer getPlayer(int index) {
 		return playerList.getPlayer(index);
+	}
+	public AwesomenautsPlayer[] getPlayerList() {
+		return playerList.getPlayerList();
 	}
 	public void editPlayer(AwesomenautsPlayer player, int index) {
 		playerList.overwritePlayer(player, index);
@@ -167,30 +171,24 @@ public class TeamRandomizerController {
 		}
 	}
 	public void save() {
-		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME));
-			AwesomenautsPlayer[] players = playerList.getPlayerList();
-			for(int i = 0; i < players.length; i++) {
-				writer.write(players[i].encode() + "\n");
-			}
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		save(FILE_NAME);
 	}
 	public void load() {
+		load(FILE_NAME);
+	}
+	public void load(String filename) {
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
+			BufferedReader reader = new BufferedReader(new FileReader(filename));
 			String line = reader.readLine();
 			while(line != null) {
 				playerList.addPlayer(decodePlayer(line));
 				line = reader.readLine();
 			}
 			reader.close();
+			mainGUI.updatePlayerList(playerList.getPlayerList());
 		} catch(Exception e) {
-			e.printStackTrace();
+
 		}
-		mainGUI.updatePlayerList(playerList.getPlayerList());
 	}
 	public AwesomenautsPlayer decodePlayer(String player) {
 		int split = player.lastIndexOf(':');

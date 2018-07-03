@@ -2,6 +2,7 @@ package nautsTeamRandomizer.View;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.MenuBar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -47,11 +51,15 @@ public class MainGUI extends JFrame {
 	private JButton generateTeam = new JButton("Randomize!");
 	private JButton clear = new JButton("Clear Selection");
 	private JButton saveExit = new JButton("Save Players and Exit");
+	private JMenuBar menuBar = new JMenuBar();
+	private JMenu menuPlayer = new JMenu("Players");
+	private JMenuItem menuRefreshPlayers = new JMenuItem("Refresh Player List");
+	private JMenuItem menuSavePlayers = new JMenuItem("Save Player List");
 	
 	public MainGUI(TeamRandomizerController parent) {
 		super("Awesomenaut Team Randomizer");
 		parentController = parent;
-
+		
 		add(playerPanel);
 		playerPanel.add(playerList);
 		playerPanel.add(createPlayer);
@@ -101,6 +109,11 @@ public class MainGUI extends JFrame {
 		clear.setBounds(30, 700, 140, 25);
 		saveExit.setBounds(350, 700, 160, 25);
 
+		setJMenuBar(menuBar);
+		menuBar.add(menuPlayer);
+		menuPlayer.add(menuSavePlayers);
+		menuPlayer.add(menuRefreshPlayers);
+		
 		// Set the List options
 		playerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		playerList.setLayoutOrientation(JList.VERTICAL);
@@ -197,8 +210,20 @@ public class MainGUI extends JFrame {
 				System.exit(0);		
 			}
 		});
+		menuSavePlayers.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parentController.save();
+			}
+		});
+		menuRefreshPlayers.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updatePlayerList(parentController.getPlayerList());
+			}
+		});
 		setLayout(new GridLayout());
-		setSize(1200, 800);
+		setSize(1200, 850);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
