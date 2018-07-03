@@ -8,9 +8,6 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-import org.omg.CORBA.SystemException;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
-
 import nautsTeamRandomizer.AwesomenautData.Awesomenaut;
 import nautsTeamRandomizer.Model.AwesomenautsInfo;
 import nautsTeamRandomizer.Model.AwesomenautsPlayer;
