@@ -2,7 +2,6 @@ package nautsTeamRandomizer.View;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.MenuBar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

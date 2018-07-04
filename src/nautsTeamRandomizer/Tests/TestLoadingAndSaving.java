@@ -2,7 +2,6 @@ package nautsTeamRandomizer.Tests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Random;
@@ -31,6 +30,7 @@ class TestLoadingAndSaving {
 		
 		trc2.load("my_data");
 		assertArrayEquals(b, trc2.getPlayer(0).getHasNauts());
+		trc2.deleteFile("my_data");
 	}
 	
 	@Test
@@ -68,6 +68,6 @@ class TestLoadingAndSaving {
 		assertFalse(y.getPlayer(1).getHasAllNauts());
 		assertArrayEquals(b2, y.getPlayer(1).getHasNauts());
 		assertTrue(y.getPlayer(2).getHasAllNauts());
-		
+		x.deleteFile("random_and_all");
 	}
 }
