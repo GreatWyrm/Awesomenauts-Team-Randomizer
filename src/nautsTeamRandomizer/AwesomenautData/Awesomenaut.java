@@ -3,6 +3,7 @@ package nautsTeamRandomizer.AwesomenautData;
 public class Awesomenaut {
 	private String nautName;
 	private String[] alternateNames;
+	private String[] skinNames;
 	private String nautClass;
 	private int nautID;
 	
@@ -10,6 +11,14 @@ public class Awesomenaut {
 	public Awesomenaut(String name, String[] altNames, String nautClass) {
 		nautName = name;
 		alternateNames = altNames;
+		skinNames = new String[]{};
+		this.nautClass = nautClass;
+	}
+	// Regular Constructor
+	public Awesomenaut(String name, String[] altNames, String[] skinNames,String nautClass) {
+		nautName = name;
+		alternateNames = altNames;
+		this.skinNames = skinNames;
 		this.nautClass = nautClass;
 	}
 	public String getNautClass() {
