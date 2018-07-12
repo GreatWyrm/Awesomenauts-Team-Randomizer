@@ -22,45 +22,45 @@ public class AwesomenautsPlayer {
 	public AwesomenautsPlayer(String name, String nautsOwned) {
 		playerName = name;
 		hasNauts = new boolean[AwesomenautsInfo.NUM_OF_NAUTS][];
-		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
+		for (int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			hasNauts[i] = new boolean[AwesomenautsInfo.AWESOMENAUTS[i].getNumOfSkins() + 1];
 		}
-		if (nautsOwned.equals("")) {
-			hasAllNauts = false;
+		if (nautsOwned.charAt(0) == 'A') {
+			hasAllNauts = true;
+			for (int i = 0; i < hasNauts.length; i++) {
+				hasNauts[i][0] = true;
+			}
 		} else {
-			if (nautsOwned.equals("A")) {
-				hasAllNauts = true;
-			}
 			hasAllNauts = false;
-			int i = 0;
-			while (i != -1) {
-				String naut = nautsOwned.substring(0, i);
-				nautsOwned = nautsOwned.substring(i + 1);
-				i = nautsOwned.indexOf(" ");
-				if (naut.equals(" ") || naut.equals("")) {
-					continue;
-				}
-				if(naut.indexOf('.') != -1) {
-					String index = naut.substring(0, naut.indexOf('.'));
-					String index2 = naut.substring(naut.indexOf('.') + 1);
-					int intIndex = Integer.parseInt(index);
-					int intIndex2 = Integer.parseInt(index2);
-					hasNauts[intIndex][intIndex2] = true;
-				} else {
-					int intIndex = Integer.parseInt(naut);
-					hasNauts[intIndex][0] = true;
-				}
+		}
+		int i = 0;
+		while (i != -1) {
+			String naut = nautsOwned.substring(0, i);
+			nautsOwned = nautsOwned.substring(i + 1);
+			i = nautsOwned.indexOf(" ");
+			if (naut.equals(" ") || naut.equals("")) {
+				continue;
 			}
-			if(nautsOwned.indexOf('.') != -1) {
-				String index = nautsOwned.substring(0, nautsOwned.indexOf('.'));
-				String index2 = nautsOwned.substring(nautsOwned.indexOf('.') + 1);
+			if (naut.indexOf('.') != -1) {
+				String index = naut.substring(0, naut.indexOf('.'));
+				String index2 = naut.substring(naut.indexOf('.') + 1);
 				int intIndex = Integer.parseInt(index);
 				int intIndex2 = Integer.parseInt(index2);
 				hasNauts[intIndex][intIndex2] = true;
 			} else {
-				int intIndex = Integer.parseInt(nautsOwned);
+				int intIndex = Integer.parseInt(naut);
 				hasNauts[intIndex][0] = true;
 			}
+		}
+		if (nautsOwned.indexOf('.') != -1) {
+			String index = nautsOwned.substring(0, nautsOwned.indexOf('.'));
+			String index2 = nautsOwned.substring(nautsOwned.indexOf('.') + 1);
+			int intIndex = Integer.parseInt(index);
+			int intIndex2 = Integer.parseInt(index2);
+			hasNauts[intIndex][intIndex2] = true;
+		} else {
+			int intIndex = Integer.parseInt(nautsOwned);
+			hasNauts[intIndex][0] = true;
 		}
 	}
 	public AwesomenautsPlayer(String name, boolean hasAllNauts, boolean[][] hasNauts) {
