@@ -1,6 +1,9 @@
 package nautsTeamRandomizer.Tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,32 +42,32 @@ class TestAwesomenautsPlayer {
 	@Test
 	void testCanHaveNibbs() {
 		AwesomenautsPlayer ap = new AwesomenautsPlayer("bob");
-		boolean b[] = {false, false, true, false, false, false, false, false, false, false, false, false,
-				false, false, false, false, false, false, false, false, false, false, false, false, false,
-				false, false, false, false, false, false, false, false, false};
+		boolean b[][] = {{false}, {false}, {true}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false},
+				{false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false},
+				{false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}};
 		ap.setHasNauts(b);
-		assertEquals("bob: 2", ap.encode());
+		assertEquals("bob: 2.0", ap.encode());
 	}
 	@Test
 	void testCanDecodeNameFromString() {
 		TeamRandomizerController controller = new TeamRandomizerController();
 		AwesomenautsPlayer ap = new AwesomenautsPlayer("bob");
-		boolean b[] = {false, false, false, false, false, false, false, false, false, false, false, false,
-				false, false, false, true, false, false, false, false, false, false, false, false, false,
-				false, false, false, false, true, false, false, false, false};
+		boolean b[][] = {{false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false},
+				{false}, {false}, {false}, {true}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false},
+				{false}, {false}, {false}, {true}, {false}, {false}, {false}, {false}, {false}};
 		ap.setHasNauts(b);
-		controller.decodePlayer("bob: 15 29");
+		controller.decodePlayer("bob: 15.0 29.0");
 		assertEquals(ap.getPlayerName(), controller.getPlayer(0).getPlayerName());
 	}
 	@Test
 	void testCanDecodeNautsFromString() {
 		TeamRandomizerController controller = new TeamRandomizerController();
 		AwesomenautsPlayer ap = new AwesomenautsPlayer("bob");
-		boolean b[] = {false, false, false, false, false, false, false, false, false, false, false, false,
-				false, false, false, true, false, false, false, false, false, false, false, false, false,
-				false, false, false, false, true, false, false, false, false};
+		boolean b[][] = {{false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false},
+				{false}, {false}, {false}, {true}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false},
+				{false}, {false}, {false}, {true}, {false}, {false}, {false}, {false}, {false}};
 		ap.setHasNauts(b);
-		controller.decodePlayer("bob: 15 29");
+		controller.decodePlayer("bob: 15.0 29.0");
 		assertArrayEquals(ap.getHasNauts(), controller.getPlayer(0).getHasNauts());
 	}
 }

@@ -71,6 +71,10 @@ public class TeamRandomizerController {
 		mainGUI.playerSelect(playerList.getPlayer(index), playerNum);
 	}
 	public String addRestrictedNaut0(String nautName) {
+		if(nautName.toLowerCase().equals("bas the angry cheese farmer")) {
+			JOptionPane.showMessageDialog(null, "Seriously?", "Easter Egg Found", JOptionPane.WARNING_MESSAGE);
+			return "";
+		}
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			if(AwesomenautsInfo.AWESOMENAUTS[i].matchesNautName(nautName)) {
 				restrictedNaut0 = AwesomenautsInfo.AWESOMENAUTS[i];
@@ -82,6 +86,10 @@ public class TeamRandomizerController {
 		return "";
 	}
 	public String addRestrictedNaut1(String nautName) {
+		if(nautName.toLowerCase().equals("bas the angry cheese farmer")) {
+			JOptionPane.showMessageDialog(null, "Seriously?", "Easter Egg Found", JOptionPane.WARNING_MESSAGE);
+			return "";
+		}
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			if(AwesomenautsInfo.AWESOMENAUTS[i].matchesNautName(nautName)) {
 				restrictedNaut1 = AwesomenautsInfo.AWESOMENAUTS[i];
@@ -96,7 +104,7 @@ public class TeamRandomizerController {
 		restrictedNaut0 = null;
 		restrictedNaut1 = null;
 	}
-	public void randomizeTeam(AwesomenautsPlayer[] players) {
+	public void randomizeTeam(AwesomenautsPlayer[] players, boolean useSkins) {
 		Awesomenaut[] nauts = new Awesomenaut[3];
 		if(restrictedNaut0 == null && restrictedNaut1 == null) {
 			if(!(players[0] == null)) {
@@ -154,7 +162,7 @@ public class TeamRandomizerController {
 				nauts[1] = players[1].getRandomNaut(restrictedNaut0, restrictedNaut1);
 			}
 		}
-		displayTeamGUI = new DisplayTeamGUI(nauts, players);
+		displayTeamGUI = new DisplayTeamGUI(nauts, players, useSkins);
 	}
 	public void save(String filename) {
 		try {

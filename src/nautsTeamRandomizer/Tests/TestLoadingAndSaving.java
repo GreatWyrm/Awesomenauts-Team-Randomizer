@@ -18,9 +18,9 @@ class TestLoadingAndSaving {
 		TeamRandomizerController trc1 = new TeamRandomizerController();
 		
 		AwesomenautsPlayer ap = new AwesomenautsPlayer("jerry");
-		boolean b[] = {true, false, true, false, false, false, false, false, true, false, false, false,
-				false, false, false, false, false, false, false, false, false, false, false, false, false,
-				false, false, false, false, false, false, false, true, false};
+		boolean b[][] = {{true}, {false}, {true}, {false}, {false}, {false}, {false}, {false}, {true}, {false}, {false}, {false},
+				{false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false},
+				{false}, {false}, {false}, {false}, {false}, {false}, {false}, {true}, {false}};
 		ap.setHasNauts(b);
 		
 		trc1.addNewPlayer(ap);
@@ -42,12 +42,12 @@ class TestLoadingAndSaving {
 		AwesomenautsPlayer ap2 = new AwesomenautsPlayer("ap2");
 		AwesomenautsPlayer ap_all = new AwesomenautsPlayer("ap_all");
 		
-		boolean b1[] = new boolean[34];
-		boolean b2[] = new boolean[34];
+		boolean b1[][] = new boolean[34][1];
+		boolean b2[][] = new boolean[34][1];
 		
 		for (int i = 0; i < b1.length; i++) {
-			b1[i]= r.nextBoolean();
-			b2[i]= r.nextBoolean();
+			b1[i][0] = r.nextBoolean();
+			b2[i][0] = r.nextBoolean();
 		}
 		
 		ap1.setHasNauts(b1);

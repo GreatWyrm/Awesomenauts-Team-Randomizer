@@ -7,14 +7,6 @@ public class Awesomenaut {
 	private String nautClass;
 	private int nautID;
 	
-	// Regular Constructor
-	public Awesomenaut(String name, String[] altNames, String nautClass) {
-		nautName = name;
-		alternateNames = altNames;
-		skinNames = new String[]{};
-		this.nautClass = nautClass;
-	}
-	// Regular Constructor
 	public Awesomenaut(String name, String[] altNames, String[] skinNames,String nautClass) {
 		nautName = name;
 		alternateNames = altNames;
@@ -38,13 +30,19 @@ public class Awesomenaut {
 		}
 		return false;
 	}
-	public String toString() {
-		return getNautName();
-	}
 	public void setID(int i) {
 		this.nautID = i;
 	}
 	public int getID() {
 		return this.nautID;
+	}
+	public int getNumOfSkins() {
+		return skinNames.length;
+	}
+	public String getSkinName(int index) {
+		return skinNames[index];
+	}
+	public String[] getAllSkins() {
+		return skinNames;
 	}
 }

@@ -8,42 +8,62 @@ import nautsTeamRandomizer.AwesomenautData.Awesomenaut;
 public class AwesomenautsPlayer {
 	private String playerName;
 	private boolean hasAllNauts;
-	private boolean[] hasNauts;
+	private boolean[][] hasNauts;
 	
 	public AwesomenautsPlayer(String name) {
 		playerName = name;
 		hasAllNauts = false;
-		hasNauts = new boolean[AwesomenautsInfo.NUM_OF_NAUTS];
+		hasNauts = new boolean[AwesomenautsInfo.NUM_OF_NAUTS][];
+		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
+			hasNauts[i] = new boolean[AwesomenautsInfo.AWESOMENAUTS[i].getNumOfSkins() + 1];
+		}
 	}
 	// Constructor to decode player
 	public AwesomenautsPlayer(String name, String nautsOwned) {
 		playerName = name;
-		hasNauts = new boolean[AwesomenautsInfo.NUM_OF_NAUTS];
+		hasNauts = new boolean[AwesomenautsInfo.NUM_OF_NAUTS][];
+		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
+			hasNauts[i] = new boolean[AwesomenautsInfo.AWESOMENAUTS[i].getNumOfSkins() + 1];
+		}
 		if (nautsOwned.equals("")) {
 			hasAllNauts = false;
 		} else {
 			if (nautsOwned.equals("A")) {
 				hasAllNauts = true;
-			} else {
-				hasAllNauts = false;
-				// nautsOwned = nautsOwned.substring(1);
-				int i = 0;
-				while (i != -1) {
-					String naut = nautsOwned.substring(0, i);
-					nautsOwned = nautsOwned.substring(i + 1);
-					i = nautsOwned.indexOf(" ");
-					if (naut.equals(" ") || naut.equals("")) {
-						continue;
-					}
-					int index = Integer.parseInt(naut);
-					hasNauts[index] = true;
+			}
+			hasAllNauts = false;
+			int i = 0;
+			while (i != -1) {
+				String naut = nautsOwned.substring(0, i);
+				nautsOwned = nautsOwned.substring(i + 1);
+				i = nautsOwned.indexOf(" ");
+				if (naut.equals(" ") || naut.equals("")) {
+					continue;
 				}
-				int index = Integer.parseInt(nautsOwned);
-				hasNauts[index] = true;
+				if(naut.indexOf('.') != -1) {
+					String index = naut.substring(0, naut.indexOf('.'));
+					String index2 = naut.substring(naut.indexOf('.') + 1);
+					int intIndex = Integer.parseInt(index);
+					int intIndex2 = Integer.parseInt(index2);
+					hasNauts[intIndex][intIndex2] = true;
+				} else {
+					int intIndex = Integer.parseInt(naut);
+					hasNauts[intIndex][0] = true;
+				}
+			}
+			if(nautsOwned.indexOf('.') != -1) {
+				String index = nautsOwned.substring(0, nautsOwned.indexOf('.'));
+				String index2 = nautsOwned.substring(nautsOwned.indexOf('.') + 1);
+				int intIndex = Integer.parseInt(index);
+				int intIndex2 = Integer.parseInt(index2);
+				hasNauts[intIndex][intIndex2] = true;
+			} else {
+				int intIndex = Integer.parseInt(nautsOwned);
+				hasNauts[intIndex][0] = true;
 			}
 		}
 	}
-	public AwesomenautsPlayer(String name, boolean hasAllNauts, boolean[] hasNauts) {
+	public AwesomenautsPlayer(String name, boolean hasAllNauts, boolean[][] hasNauts) {
 		playerName = name;
 		this.hasAllNauts = hasAllNauts;
 		this.hasNauts = hasNauts;
@@ -60,13 +80,16 @@ public class AwesomenautsPlayer {
 	public void setHasAllNauts(boolean hasAllNauts) {
 		this.hasAllNauts = hasAllNauts;
 	}
-	public boolean[] getHasNauts() {
+	public boolean[][] getHasNauts() {
 		return hasNauts;
 	}
-	public boolean getHasNauts(int index) {
+	public boolean[] getHasNauts(int index) {
 		return hasNauts[index];
 	}
-	public void setHasNauts(boolean[] hasNauts) {
+	public boolean getHasNauts(int index, int index2) {
+		return hasNauts[index][index2];
+	}
+	public void setHasNauts(boolean[][] hasNauts) {
 		this.hasNauts = hasNauts;
 	}
 	public Awesomenaut getRandomNaut() {
@@ -76,7 +99,7 @@ public class AwesomenautsPlayer {
 		}
 		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
-			if(hasNauts[i]) {
+			if(hasNauts[i][0]) {
 				nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
 			}
 		}
@@ -98,7 +121,7 @@ public class AwesomenautsPlayer {
 		}
 		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
-			if(hasNauts[i] && !AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut)) {
+			if(hasNauts[i][0] && !AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut)) {
 				nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
 			}
 		}
@@ -120,7 +143,7 @@ public class AwesomenautsPlayer {
 		}
 		ArrayList<Awesomenaut> nautsOwned = new ArrayList<Awesomenaut>();
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
-			if(hasNauts[i] && (!AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut0) && !AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut1))) {
+			if(hasNauts[i][0] && (!AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut0) && !AwesomenautsInfo.AWESOMENAUTS[i].equals(restrictedNaut1))) {
 				nautsOwned.add(AwesomenautsInfo.AWESOMENAUTS[i]);
 			}
 		}
@@ -140,17 +163,48 @@ public class AwesomenautsPlayer {
 		}
 		return string;
 	}
-	
+	public String getRandomSkin(Awesomenaut naut) {
+		Random random = new Random();
+		ArrayList<String> availableSkins = new ArrayList<String>();
+		int nautIndex = naut.getID();
+		for(int i = 0; i < hasNauts[nautIndex].length; i++) {
+			if(hasNauts[nautIndex][i]) {
+				availableSkins.add(naut.getSkinName(i));
+			}
+		}
+		if(availableSkins.isEmpty()) {
+			return null;
+		}
+		return availableSkins.get(random.nextInt(availableSkins.size()));
+	}
 	public String encode() {
 		String result = this.playerName + ":";
 		if (this.hasAllNauts) {
-			return result + "A";
+			result += "A";
+		} else {
+			for (int i = 0; i < this.hasNauts.length; i++) {
+				if (this.hasNauts[i][0]) {
+					result += " " + i + ".0";
+				}
+			}
 		}
-		for (int i = 0; i < this.hasNauts.length; i++) {
-			if (this.hasNauts[i]) {
-				result += " " + i;
+		for(int i = 0; i < hasNauts.length; i++) {
+			for(int j = 1; j < hasNauts[i].length; j++) {
+				if(hasNauts[i][j]) {
+					result += " " + i + "." + j;
+				}
 			}
 		}
 		return result;
+	}
+	public void printNautAndSkins(int index) {
+		Awesomenaut awesomenaut = AwesomenautsInfo.AWESOMENAUTS[index];
+		for(int i = 0; i < hasNauts[index].length; i++) {
+			if(i == 0) {
+				System.out.println(awesomenaut.getNautName() + ": " + hasNauts[index][i]);
+			} else {
+				System.out.println(awesomenaut.getSkinName(i - 1) + ": " + hasNauts[index][i]);
+			}
+		}
 	}
 }

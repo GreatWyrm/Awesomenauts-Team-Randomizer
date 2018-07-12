@@ -1,12 +1,12 @@
 package nautsTeamRandomizer.View;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -15,7 +15,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
@@ -24,25 +23,36 @@ import nautsTeamRandomizer.Model.AwesomenautsPlayer;
 
 public class MainGUI extends JFrame {
 
+	// UID - Unused
 	private static final long serialVersionUID = 6530073372542178903L;
+	// CreatePlayer - button that allows creation of AwesomenautsPlayer objects
 	private JButton createPlayer = new JButton("Create Player");
+	// DeletePlayer - button that allows deletion of players
 	private JButton deletePlayer = new JButton("Delete Player");
+	// editPlayer - button that allows the editing of AwesomenautsPlayer objects
 	private JButton editPlayer = new JButton("Edit Player");
+	// playerListModel - Listmodel to contain the awesomenautsPlayer objects
 	private DefaultListModel<AwesomenautsPlayer> playerListModel = new DefaultListModel<AwesomenautsPlayer>();
+	//  playerList - list to display the AwesomenautsPlayer objects
 	private JList<AwesomenautsPlayer> playerList = new JList<AwesomenautsPlayer>(playerListModel);
-	private JScrollPane listScroller = new JScrollPane(playerList);
+	// playerPanel - panel to hold all of the components related to players
 	private JPanel playerPanel = new JPanel();
+	// generationPanel - panel to hold all of the components related to team randomization 
 	private JPanel generationPanel = new JPanel();
+	// parentController - reference to the parent controller to call methods it in
 	private TeamRandomizerController parentController;
+	// labels - display static text describing the function of the program
 	private JLabel teamLabel = new JLabel("Awesomenaut Team Randomizer");
 	private JLabel playerLabel = new JLabel("Awesomenaut Player List");
 	private JLabel optionsLabel = new JLabel("Team Selection Options:");
 	private JLabel optionsLabel0 = new JLabel("-Select a player that is on the Player List for a random 'Naut");
 	private JLabel optionsLabel1 = new JLabel("-Enter in the name of an Awesomenaut that is already on your team");
 	private JLabel optionsLabel2 = new JLabel("-Leave the box blank and it will ignore it");
+	// player Selector buttons - allows user to select a player to fill in an empty space - move to an array eventually
 	private JButton playerSelector0 = new JButton("Select Player");
 	private JButton playerSelector1 = new JButton("Select Player");
 	private JButton playerSelector2 = new JButton("Select Player");
+	//
 	private JTextField[] playerFields = new JTextField[3];
 	private AwesomenautsPlayer[] players = new AwesomenautsPlayer[3];
 	private JButton nautName0 = new JButton("Enter 'Naut Name");
@@ -52,8 +62,10 @@ public class MainGUI extends JFrame {
 	private JButton saveExit = new JButton("Save Players and Exit");
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu menuPlayer = new JMenu("Players");
+	private JMenu menuGeneration = new JMenu("Generation Settings");
 	private JMenuItem menuRefreshPlayers = new JMenuItem("Refresh Player List");
 	private JMenuItem menuSavePlayers = new JMenuItem("Save Player List");
+	private JCheckBoxMenuItem menuUseSkins = new JCheckBoxMenuItem("Use Skins");
 	
 	public MainGUI(TeamRandomizerController parent) {
 		super("Awesomenaut Team Randomizer");
@@ -108,15 +120,17 @@ public class MainGUI extends JFrame {
 		clear.setBounds(30, 700, 140, 25);
 		saveExit.setBounds(350, 700, 160, 25);
 
+		// adding the menuBar and it's components to the window
 		setJMenuBar(menuBar);
 		menuBar.add(menuPlayer);
+		menuBar.add(menuGeneration);
 		menuPlayer.add(menuSavePlayers);
 		menuPlayer.add(menuRefreshPlayers);
+		menuGeneration.add(menuUseSkins);
 		
 		// Set the List options
 		playerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		playerList.setLayoutOrientation(JList.VERTICAL);
-		listScroller.setPreferredSize(new Dimension(250, 80));
 
 		// Add the action listeners. Hey! Listen!
 		createPlayer.addActionListener(new ActionListener() {
@@ -192,7 +206,7 @@ public class MainGUI extends JFrame {
 		generateTeam.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					parentController.randomizeTeam(players);	
+					parentController.randomizeTeam(players, menuUseSkins.isSelected());	
 			}
 		});
 		clear.addActionListener(new ActionListener() {
@@ -215,6 +229,7 @@ public class MainGUI extends JFrame {
 				parentController.save();
 			}
 		});
+		menuSavePlayers.setToolTipText("Save the current player list");
 		menuRefreshPlayers.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

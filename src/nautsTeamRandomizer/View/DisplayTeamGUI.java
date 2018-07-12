@@ -18,7 +18,7 @@ public class DisplayTeamGUI extends JFrame {
 	
 	
 	// nauts Array and players array are the same length
-	public DisplayTeamGUI(Awesomenaut[] nauts, AwesomenautsPlayer[] players) {
+	public DisplayTeamGUI(Awesomenaut[] nauts, AwesomenautsPlayer[] players, boolean useSkins) {
 		super("Awesomenaut Team Randomizer");
 		
 		close.addActionListener(new ActionListener() {
@@ -29,9 +29,15 @@ public class DisplayTeamGUI extends JFrame {
 		});
 		for(int i = 0; i < nauts.length; i++) {
 			if(!(nauts[i] == null)) {
-				nautDisplayField[i] = new JTextField(nauts[i].getNautName());
-				add(nautDisplayField[i]);
-				nautDisplayField[i].setEditable(false);
+				if(useSkins) {
+					nautDisplayField[i] = new JTextField(players[i].getRandomSkin(nauts[i]));
+					add(nautDisplayField[i]);
+					nautDisplayField[i].setEditable(false);
+				} else {
+					nautDisplayField[i] = new JTextField(nauts[i].getNautName());
+					add(nautDisplayField[i]);
+					nautDisplayField[i].setEditable(false);
+				}
 				if(i == 0) {
 					nautDisplayField[0].setBounds(20, 100, 150, 25);
 				} else if(i == 1) {
