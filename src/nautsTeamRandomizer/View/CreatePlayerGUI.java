@@ -1,5 +1,7 @@
 package nautsTeamRandomizer.View;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,17 +32,23 @@ public class CreatePlayerGUI extends JFrame{
 	private JPanel otherPanel = new JPanel();
 	GridLayout layout = new GridLayout(1, 2);
 	GridLayout layout2 = new GridLayout(2, 1);
-	GridLayout otherPanelLayout = new GridLayout(3, 1, 0, 300);
-	GridLayout nautsPanelLayout = new GridLayout(8, 11);
+	GridLayout nautsPanelLayout = new GridLayout(4, 11);
 	
 	public CreatePlayerGUI(TeamRandomizerController parent) {
 		super("Create New Player");
-		setLayout(layout);
-		add(otherPanel);
+		setLayout(layout2);
+		add(otherPanel, BorderLayout.NORTH);
 		add(nautsPanel);
         otherPanel.add(playerNameField);
 		otherPanel.add(hasAllNautsBox);
 		otherPanel.add(createPlayer);
+		otherPanel.setLayout(null);
+		otherPanel.setPreferredSize(new Dimension(1600, 100));
+		otherPanel.setMaximumSize(new Dimension(1600, 50));
+		otherPanel.setMinimumSize(new Dimension(1600, 250)); 
+		playerNameField.setBounds(100, 100, 300, 25);
+		hasAllNautsBox.setBounds(700, 100, 160, 25);
+		createPlayer.setBounds(1200, 100, 140, 25);
 		// Set up JLists for skins
 		for(int i = 0; i < skinLists.length; i++) {
 			skinLists[i] = new JList<String>( AwesomenautsInfo.AWESOMENAUTS[i].getAllSkins());
@@ -80,7 +88,6 @@ public class CreatePlayerGUI extends JFrame{
 				}
 			}
 		});
-		otherPanel.setLayout(otherPanelLayout);
 		nautsPanel.setLayout(nautsPanelLayout);
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			hasNautsBoxes[i] = new JCheckBox(AwesomenautsInfo.AWESOMENAUTS[i].getNautName());
@@ -103,8 +110,9 @@ public class CreatePlayerGUI extends JFrame{
 		}
 		playerNameField.requestFocus();
 		playerNameField.selectAll();
-		setSize(1400, 1000);
+		setSize(1600, 900);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		pack();
 		setVisible(true);
 	}
 	private void closeWindow() {

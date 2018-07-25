@@ -31,13 +31,11 @@ public class DisplayTeamGUI extends JFrame {
 			if(!(nauts[i] == null)) {
 				if(useSkins) {
 					nautDisplayField[i] = new JTextField(players[i].getRandomSkin(nauts[i]));
-					add(nautDisplayField[i]);
-					nautDisplayField[i].setEditable(false);
 				} else {
 					nautDisplayField[i] = new JTextField(nauts[i].getNautName());
-					add(nautDisplayField[i]);
-					nautDisplayField[i].setEditable(false);
 				}
+				add(nautDisplayField[i]);
+				nautDisplayField[i].setEditable(false);
 				if(i == 0) {
 					nautDisplayField[0].setBounds(20, 100, 150, 25);
 				} else if(i == 1) {

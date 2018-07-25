@@ -167,9 +167,10 @@ public class AwesomenautsPlayer {
 		Random random = new Random();
 		ArrayList<String> availableSkins = new ArrayList<String>();
 		int nautIndex = naut.getID();
-		for(int i = 0; i < hasNauts[nautIndex].length; i++) {
+		availableSkins.add(naut.getNautName());
+		for(int i = 1; i < hasNauts[nautIndex].length; i++) {
 			if(hasNauts[nautIndex][i]) {
-				availableSkins.add(naut.getSkinName(i));
+				availableSkins.add(naut.getSkinName(i - 1));
 			}
 		}
 		if(availableSkins.isEmpty()) {

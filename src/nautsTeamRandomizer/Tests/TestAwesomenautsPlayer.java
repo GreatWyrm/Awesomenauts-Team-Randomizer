@@ -56,7 +56,7 @@ class TestAwesomenautsPlayer {
 				{false}, {false}, {false}, {true}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false},
 				{false}, {false}, {false}, {true}, {false}, {false}, {false}, {false}, {false}};
 		ap.setHasNauts(b);
-		controller.decodePlayer("bob: 15.0 29.0");
+		controller.addNewPlayer(controller.decodePlayer("bob: 15.0 29.0"));
 		assertEquals(ap.getPlayerName(), controller.getPlayer(0).getPlayerName());
 	}
 	@Test
@@ -67,7 +67,7 @@ class TestAwesomenautsPlayer {
 				{false}, {false}, {false}, {true}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false}, {false},
 				{false}, {false}, {false}, {true}, {false}, {false}, {false}, {false}, {false}};
 		ap.setHasNauts(b);
-		controller.decodePlayer("bob: 15.0 29.0");
+		controller.addNewPlayer(controller.decodePlayer("bob: 15.0 29.0"));
 		assertArrayEquals(ap.getHasNauts(), controller.getPlayer(0).getHasNauts());
 	}
 }

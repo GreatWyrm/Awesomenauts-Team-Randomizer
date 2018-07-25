@@ -29,12 +29,11 @@ public class EditPlayerGUI extends JFrame{
 	private JPanel otherPanel = new JPanel();
 	GridLayout layout = new GridLayout(1, 2);
 	GridLayout layout2 = new GridLayout(2, 1);
-	GridLayout otherPanelLayout = new GridLayout(3, 1, 0, 300);
-	GridLayout nautsPanelLayout = new GridLayout(8, 11);
+	GridLayout nautsPanelLayout = new GridLayout(4, 11);
 	
 	public EditPlayerGUI(TeamRandomizerController parent, AwesomenautsPlayer player, int index) {
 		super("Edit Player");
-		setLayout(layout);
+		setLayout(layout2);
 		add(otherPanel);
 		add(nautsPanel);
         otherPanel.add(playerNameField);
@@ -42,6 +41,10 @@ public class EditPlayerGUI extends JFrame{
 		otherPanel.add(hasAllNautsBox);
 		hasAllNautsBox.setSelected(player.getHasAllNauts());
 		otherPanel.add(savePlayer);
+		otherPanel.setLayout(null);
+		playerNameField.setBounds(100, 100, 300, 25);
+		hasAllNautsBox.setBounds(700, 100, 160, 25);
+		savePlayer.setBounds(1200, 100, 140, 25);
 		savePlayer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -70,7 +73,6 @@ public class EditPlayerGUI extends JFrame{
 			skinLists[i].setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			skinLists[i].setVisible(false);
 		}
-		otherPanel.setLayout(otherPanelLayout);
 		nautsPanel.setLayout(nautsPanelLayout);
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			hasNautsBoxes[i] = new JCheckBox(AwesomenautsInfo.AWESOMENAUTS[i].getNautName());
@@ -107,8 +109,9 @@ public class EditPlayerGUI extends JFrame{
 		}
 		playerNameField.requestFocus();
 		playerNameField.selectAll();
-		setSize(1400, 1000);
+		setSize(1600, 900);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		pack();
 		setVisible(true);
 	}
 	private void closeWindow() {
