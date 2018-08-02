@@ -1,7 +1,7 @@
 package nautsTeamRandomizer.View;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,33 +23,51 @@ import nautsTeamRandomizer.Model.AwesomenautsPlayer;
 
 @SuppressWarnings({"serial", "unchecked"})
 public class CreatePlayerGUI extends JFrame{
+	private final int NUM_OF_COLUMNS = 11;
 	private JTextField playerNameField = new JTextField("Name");
 	private JCheckBox hasAllNautsBox = new JCheckBox("I own all of the 'Nauts");
 	private JCheckBox[] hasNautsBoxes = new JCheckBox[AwesomenautsInfo.NUM_OF_NAUTS];
 	private JList<String>[] skinLists = (JList<String>[]) new JList[AwesomenautsInfo.NUM_OF_NAUTS];
 	private JPanel[] hasNautsPanels = new JPanel[AwesomenautsInfo.NUM_OF_NAUTS];
 	private JButton createPlayer = new JButton("Create Player");
-	private JPanel nautsPanel = new JPanel();
-	private JPanel otherPanel = new JPanel();
-	GridLayout layout = new GridLayout(1, 2);
-	GridLayout layout2 = new GridLayout(2, 1);
-	GridLayout nautsPanelLayout = new GridLayout(4, 11);
+	private JLabel creationInfo0 = new JLabel("-To create a player, enter in a name, select the Awesomenauts and skins you own, and then press Create Player");
+	private JPanel[] nautsPanel = new JPanel[NUM_OF_COLUMNS];
+	GridLayout layout = new GridLayout(2, 1);
+	GridBagLayout gridBagLayout = new GridBagLayout();
+	GridBagConstraints constraints = new GridBagConstraints();
+	GridLayout nautsPanelLayout = new GridLayout(4, 1);
 	
 	public CreatePlayerGUI(TeamRandomizerController parent) {
 		super("Create New Player");
-		setLayout(layout2);
-		add(otherPanel, BorderLayout.NORTH);
-		add(nautsPanel);
-        otherPanel.add(playerNameField);
-		otherPanel.add(hasAllNautsBox);
-		otherPanel.add(createPlayer);
-		otherPanel.setLayout(null);
-		otherPanel.setPreferredSize(new Dimension(1600, 100));
-		otherPanel.setMaximumSize(new Dimension(1600, 50));
-		otherPanel.setMinimumSize(new Dimension(1600, 250)); 
-		playerNameField.setBounds(100, 100, 300, 25);
-		hasAllNautsBox.setBounds(700, 100, 160, 25);
-		createPlayer.setBounds(1200, 100, 140, 25);
+		setLayout(gridBagLayout);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.gridwidth = 1;
+		constraints.gridheight = 1;
+		add(playerNameField, constraints);
+		constraints.gridx = 6;
+		constraints.gridy = 0;
+		add(hasAllNautsBox, constraints);
+		constraints.gridx = 10;
+		constraints.gridy = 0;
+		add(createPlayer, constraints);
+		constraints.gridx = 4;
+		constraints.gridy = 1;
+		constraints.gridwidth = 4;
+		add(creationInfo0, constraints);
+		constraints.gridwidth = 1;
+		
+		constraints.gridx = 0;
+		constraints.gridy = 5;
+		constraints.gridwidth = 1;
+		constraints.gridheight = 4;
+		for(int i = 0; i < nautsPanel.length; i++) {
+			nautsPanel[i]= new JPanel(); 
+			add(nautsPanel[i], constraints);
+			nautsPanel[i].setLayout(nautsPanelLayout);
+			constraints.gridx++;
+		}
 		// Set up JLists for skins
 		for(int i = 0; i < skinLists.length; i++) {
 			skinLists[i] = new JList<String>( AwesomenautsInfo.AWESOMENAUTS[i].getAllSkins());
@@ -88,11 +107,10 @@ public class CreatePlayerGUI extends JFrame{
 				}
 			}
 		});
-		nautsPanel.setLayout(nautsPanelLayout);
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			hasNautsBoxes[i] = new JCheckBox(AwesomenautsInfo.AWESOMENAUTS[i].getNautName());
-			hasNautsPanels[i] = new JPanel(layout2); 
-			nautsPanel.add(hasNautsPanels[i]);
+			hasNautsPanels[i] = new JPanel(layout);
+			nautsPanel[i % NUM_OF_COLUMNS].add(hasNautsPanels[i]);
 			hasNautsPanels[i].add(hasNautsBoxes[i]);
 			hasNautsPanels[i].add(skinLists[i]);
 			final JCheckBox currentBox = hasNautsBoxes[i];
@@ -110,7 +128,6 @@ public class CreatePlayerGUI extends JFrame{
 		}
 		playerNameField.requestFocus();
 		playerNameField.selectAll();
-		setSize(1600, 900);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		pack();
 		setVisible(true);

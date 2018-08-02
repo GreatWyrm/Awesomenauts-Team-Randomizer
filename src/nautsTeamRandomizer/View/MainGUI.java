@@ -242,7 +242,7 @@ public class MainGUI extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	public void displayMainScren() {
+	public void displayMainScreen() {
 		setVisible(true);
 	}
 

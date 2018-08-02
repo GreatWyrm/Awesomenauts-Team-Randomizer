@@ -25,14 +25,14 @@ public class TeamRandomizerController {
 	private CreatePlayerGUI createPlayerGUI;
 	private EditPlayerGUI editPlayerGUI;
 	private PlayerSelectionGUI selectPlayerGUI;
-	private Awesomenaut restrictedNaut0;
-	private Awesomenaut restrictedNaut1;
+	private Awesomenaut[] awesomenauts;
 	private DisplayTeamGUI displayTeamGUI;
 	private final String FILE_NAME = "playerdata.txt";
 	
 	public TeamRandomizerController() {
 		mainGUI = new MainGUI(this);
 		playerList = new PlayerList();
+		awesomenauts = new Awesomenaut[3];
 	}
 	
 	public void createNewPlayerGUI() {
@@ -77,8 +77,8 @@ public class TeamRandomizerController {
 		}
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			if(AwesomenautsInfo.AWESOMENAUTS[i].matchesNautName(nautName)) {
-				restrictedNaut0 = AwesomenautsInfo.AWESOMENAUTS[i];
-				return restrictedNaut0.getNautName();
+				awesomenauts[0] = AwesomenautsInfo.AWESOMENAUTS[i];
+				return awesomenauts[0].getNautName();
 			}
 		}
 		JOptionPane.showMessageDialog(null, "No Awesomenaut matches the name you entered\nPlease try again", "No Matches Found",
@@ -92,8 +92,8 @@ public class TeamRandomizerController {
 		}
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			if(AwesomenautsInfo.AWESOMENAUTS[i].matchesNautName(nautName)) {
-				restrictedNaut1 = AwesomenautsInfo.AWESOMENAUTS[i];
-				return restrictedNaut1.getNautName();
+				awesomenauts[2] = AwesomenautsInfo.AWESOMENAUTS[i];
+				return awesomenauts[2].getNautName();
 			}
 		}
 		JOptionPane.showMessageDialog(null, "No Awesomenaut matches the name you entered", "No Matches Found",
@@ -101,68 +101,36 @@ public class TeamRandomizerController {
 		return "";
 	}
 	public void clearSelection() {
-		restrictedNaut0 = null;
-		restrictedNaut1 = null;
+		for(int i = 0; i < awesomenauts.length; i++) {
+			awesomenauts[i] = null; 
+		}
 	}
 	public void randomizeTeam(AwesomenautsPlayer[] players, boolean useSkins) {
-		Awesomenaut[] nauts = new Awesomenaut[3];
-		if(restrictedNaut0 == null && restrictedNaut1 == null) {
-			if(!(players[0] == null)) {
-				nauts[0] = players[0].getRandomNaut();
-				if(!(players[1] == null)) {
-					nauts[1] = players[1].getRandomNaut(nauts[0]);
-					if(!(players[2] == null)) {
-						nauts[2] = players[2].getRandomNaut(nauts[0], nauts[1]);
-					}
-				} else {
-					if(!(players[2] == null)) {
-						nauts[2] = players[2].getRandomNaut(nauts[0]);
-					}
-				}
-			} else {
-				if(!(players[1] == null)) {
-					nauts[1] = players[1].getRandomNaut();
-					if(!(players[2] == null)) {
-						nauts[2] = players[2].getRandomNaut(nauts[1]);
-					}
-				} else {
-					if(!(players[2] == null)) {
-						nauts[2] = players[2].getRandomNaut();
-					}
-				}
-			}
-		} else if(restrictedNaut1 == null) {
-			nauts[0] = restrictedNaut0;
-			if(!(players[1] == null)) {
-				nauts[1] = players[1].getRandomNaut(restrictedNaut0);
-				if(!(players[2] == null)) {
-					nauts[2] = players[2].getRandomNaut(restrictedNaut0, nauts[1]);
-				}
-			} else {
-				if(!(players[2] == null)) {
-					nauts[2] = players[2].getRandomNaut(restrictedNaut0);
-				}
-			}
-		} else if(restrictedNaut0 == null) {
-			nauts[2] = restrictedNaut1;
-			if(!(players[0] == null)) {
-				nauts[0] = players[0].getRandomNaut(restrictedNaut1);
-				if(!(players[1] == null)) {
-					nauts[1] = players[1].getRandomNaut(restrictedNaut1, nauts[0]);
-				}
-			} else {
-				if(!(players[1] == null)) {
-					nauts[1] = players[1].getRandomNaut(restrictedNaut1);
-				}
-			}
-		} else {
-			nauts[0] = restrictedNaut0;
-			nauts[2] = restrictedNaut1;
-			if(!(players[1] == null)) {
-				nauts[1] = players[1].getRandomNaut(restrictedNaut0, restrictedNaut1);
+		for(int i = 0; i < players.length; i++) {
+			if(players[i] != null) {
+				awesomenauts[i] = generateNaut(players[i], i);
 			}
 		}
-		displayTeamGUI = new DisplayTeamGUI(nauts, players, useSkins);
+		displayTeamGUI = new DisplayTeamGUI(awesomenauts, players, useSkins);
+	}
+	private Awesomenaut generateNaut(AwesomenautsPlayer player, int targetIndex) {
+		Awesomenaut[] restrictedNauts = new Awesomenaut[awesomenauts.length - 1];
+		int numOfNauts = 0;
+		for(int i = 0; i < awesomenauts.length; i++) {
+			if(i != targetIndex) {
+				if(awesomenauts[i] != null) {
+					restrictedNauts[numOfNauts] = awesomenauts[i];
+					numOfNauts++;
+				}
+			}
+		}
+		if(numOfNauts == 0) {
+			return player.getRandomNaut();
+		} else if(numOfNauts == 1) {
+			return player.getRandomNaut(restrictedNauts[0]);
+		} else {
+			return player.getRandomNaut(restrictedNauts[0], restrictedNauts[1]);
+		}
 	}
 	public void save(String filename) {
 		try {
@@ -210,7 +178,7 @@ public class TeamRandomizerController {
 		return new AwesomenautsPlayer(name, nauts);
 	}
 	public void displayMainScreen() {
-		mainGUI.displayMainScren();
+		mainGUI.displayMainScreen();
 	}
 	public static void main(String[] args) {
 			TeamRandomizerController controller = new TeamRandomizerController();
