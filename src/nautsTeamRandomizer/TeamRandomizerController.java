@@ -13,17 +13,15 @@ import nautsTeamRandomizer.AwesomenautData.Awesomenaut;
 import nautsTeamRandomizer.Model.AwesomenautsInfo;
 import nautsTeamRandomizer.Model.AwesomenautsPlayer;
 import nautsTeamRandomizer.Model.PlayerList;
-import nautsTeamRandomizer.View.CreatePlayerGUI;
+import nautsTeamRandomizer.View.CreateEditPlayerGUI;
 import nautsTeamRandomizer.View.DisplayTeamGUI;
-import nautsTeamRandomizer.View.EditPlayerGUI;
 import nautsTeamRandomizer.View.MainGUI;
 import nautsTeamRandomizer.View.PlayerSelectionGUI;
 
 public class TeamRandomizerController {
 	private PlayerList playerList;
 	private MainGUI mainGUI;
-	private CreatePlayerGUI createPlayerGUI;
-	private EditPlayerGUI editPlayerGUI;
+	private CreateEditPlayerGUI createEditPlayerGUI;
 	private PlayerSelectionGUI selectPlayerGUI;
 	private Awesomenaut[] awesomenauts;
 	private DisplayTeamGUI displayTeamGUI;
@@ -36,7 +34,7 @@ public class TeamRandomizerController {
 	}
 	
 	public void createNewPlayerGUI() {
-		createPlayerGUI = new CreatePlayerGUI(this);
+		createEditPlayerGUI = new CreateEditPlayerGUI(this);
 	}
 	public void addNewPlayer(AwesomenautsPlayer newPlayer) {
 		playerList.addPlayer(newPlayer);
@@ -47,7 +45,7 @@ public class TeamRandomizerController {
 		mainGUI.updatePlayerList(playerList.getPlayerList());
 	}
 	public void edit(int index) {
-		editPlayerGUI = new EditPlayerGUI(this, playerList.getPlayer(index), index);
+		createEditPlayerGUI = new CreateEditPlayerGUI(this, playerList.getPlayer(index), index);
 	}
 	public AwesomenautsPlayer getPlayer(int index) {
 		return playerList.getPlayer(index);
