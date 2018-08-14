@@ -148,7 +148,7 @@ public class MainGUI extends JFrame {
 					JOptionPane.showMessageDialog(playerList, "A player has not been selected", "No Selection Made",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
-					parentController.edit(index);
+					parentController.edit(playerListModel.get(index));
 				}
 			}
 		});

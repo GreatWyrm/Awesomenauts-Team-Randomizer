@@ -25,7 +25,7 @@ public class TeamRandomizerController {
 	private PlayerSelectionGUI selectPlayerGUI;
 	private Awesomenaut[] awesomenauts;
 	private DisplayTeamGUI displayTeamGUI;
-	private final String FILE_NAME = "playerdata.txt";
+	private final String DEFAULT_FILE_NAME = "playerdata.txt";
 	
 	public TeamRandomizerController() {
 		mainGUI = new MainGUI(this);
@@ -44,8 +44,8 @@ public class TeamRandomizerController {
 		playerList.removePlayer(index);
 		mainGUI.updatePlayerList(playerList.getPlayerList());
 	}
-	public void edit(int index) {
-		createEditPlayerGUI = new CreateEditPlayerGUI(this, playerList.getPlayer(index), index);
+	public void edit(AwesomenautsPlayer player) {
+		createEditPlayerGUI = new CreateEditPlayerGUI(this, player);
 	}
 	public AwesomenautsPlayer getPlayer(int index) {
 		return playerList.getPlayer(index);
@@ -53,8 +53,8 @@ public class TeamRandomizerController {
 	public AwesomenautsPlayer[] getPlayerList() {
 		return playerList.getPlayerList();
 	}
-	public void editPlayer(AwesomenautsPlayer player, int index) {
-		playerList.overwritePlayer(player, index);
+	public void editPlayer(AwesomenautsPlayer player) {
+		playerList.overwritePlayer(player);
 		mainGUI.updatePlayerList(playerList.getPlayerList());
 	}
 	public void selectPlayer(int playerNum) {
@@ -133,20 +133,17 @@ public class TeamRandomizerController {
 	public void save(String filename) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-			AwesomenautsPlayer[] players = playerList.getPlayerList();
-			for(int i = 0; i < players.length; i++) {
-				writer.write(players[i].encode() + "\n");
-			}
+			writer.write(playerList.encodeAllPlayers());
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	public void save() {
-		save(FILE_NAME);
+		save(DEFAULT_FILE_NAME);
 	}
 	public void load() {
-		load(FILE_NAME);
+		load(DEFAULT_FILE_NAME);
 	}
 	public void load(String filename) {
 		try {
@@ -163,7 +160,7 @@ public class TeamRandomizerController {
 		}
 	}
 	public void deleteFile() {
-		deleteFile(FILE_NAME);
+		deleteFile(DEFAULT_FILE_NAME);
 	}
 	public void deleteFile(String filename) {
 		File file = new File(filename);

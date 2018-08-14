@@ -40,15 +40,15 @@ public class CreateEditPlayerGUI extends JFrame {
 
 	public CreateEditPlayerGUI(TeamRandomizerController parent) {
 		super("Create New Player");
-		setupWindow(parent, -1);
+		setupWindow(parent);
 		setVisible(true);
 	}
 
 	// FOR THE EDITING OF THE PLAYER
-	public CreateEditPlayerGUI(TeamRandomizerController parent, AwesomenautsPlayer player, int index) {
+	public CreateEditPlayerGUI(TeamRandomizerController parent, AwesomenautsPlayer player) {
 		super("Edit Player");
 		createPlayer.setText("Save");
-		setupWindow(parent, index);
+		setupWindow(parent);
 		playerNameField.setText(player.getPlayerName());
 		for (int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			if (player.getHasNauts(i, 0)) {
@@ -70,7 +70,7 @@ public class CreateEditPlayerGUI extends JFrame {
 		setVisible(true);
 	}
 
-	private void setupWindow(TeamRandomizerController parent, int index) {
+	private void setupWindow(TeamRandomizerController parent) {
 		setLayout(gridBagLayout);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
@@ -137,7 +137,7 @@ public class CreateEditPlayerGUI extends JFrame {
 					AwesomenautsPlayer player = new AwesomenautsPlayer(playerNameField.getText(),
 							hasAllNautsBox.isSelected(), hasNauts);
 					if (createPlayer.getText().equals("Save")) {
-						parent.editPlayer(player, index);
+						parent.editPlayer(player);
 					} else {
 						parent.addNewPlayer(player);
 					}
