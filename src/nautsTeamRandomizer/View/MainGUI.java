@@ -65,6 +65,9 @@ public class MainGUI extends JFrame {
 	private JMenu menuGeneration = new JMenu("Generation Settings");
 	private JMenuItem menuRefreshPlayers = new JMenuItem("Refresh Player List");
 	private JMenuItem menuSavePlayers = new JMenuItem("Save Player List");
+	private JMenu menuSortPlayers = new JMenu("Sort Players");
+	private JMenuItem menuSortAscending = new JMenuItem("Sort Players Alphabetically Ascending");
+	private JMenuItem menuSortDescending = new JMenuItem("Sort Players Alphabetically Descending");
 	private JCheckBoxMenuItem menuUseSkins = new JCheckBoxMenuItem("Use Skins");
 	
 	public MainGUI(TeamRandomizerController parent) {
@@ -126,6 +129,9 @@ public class MainGUI extends JFrame {
 		menuBar.add(menuGeneration);
 		menuPlayer.add(menuSavePlayers);
 		menuPlayer.add(menuRefreshPlayers);
+		menuPlayer.add(menuSortPlayers);
+		menuSortPlayers.add(menuSortAscending);
+		menuSortPlayers.add(menuSortDescending);
 		menuGeneration.add(menuUseSkins);
 		
 		// Set the List options
@@ -236,6 +242,32 @@ public class MainGUI extends JFrame {
 				updatePlayerList(parentController.getPlayerList());
 			}
 		});
+		menuSortAscending.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AwesomenautsPlayer[] array = new AwesomenautsPlayer[playerListModel.getSize()];
+				for(int i = 0; i < array.length; i++) {
+					array[i] = playerListModel.getElementAt(i);
+				}
+				selectionSort(array);
+				for(int i = 0; i < array.length; i++) {
+					playerListModel.setElementAt(array[i], i);
+				}
+			}
+		});
+		menuSortDescending.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AwesomenautsPlayer[] array = new AwesomenautsPlayer[playerListModel.getSize()];
+				for(int i = 0; i < array.length; i++) {
+					array[i] = playerListModel.getElementAt(i);
+				}
+				selectionSort(array);
+				for(int i = 0; i < array.length; i++) {
+					playerListModel.setElementAt(array[array.length - 1 - i], i);
+				}
+			}
+		});
 		setLayout(new GridLayout());
 		setSize(1200, 850);
 		setLocationRelativeTo(null);
@@ -266,4 +298,19 @@ public class MainGUI extends JFrame {
 		}
 		parentController.clearSelection();
 	}
+    private void selectionSort(AwesomenautsPlayer array[])
+    {
+        for (int i = 0; i < array.length-1; i++)
+        {
+            int min = i;
+            for (int j = i+1; j < array.length; j++) {
+                if (array[j].getPlayerName().compareTo(array[min].getPlayerName()) < 0) {
+                	min = j;
+                }
+            }
+            AwesomenautsPlayer temp = array[min];
+            array[min] = array[i];
+            array[i] = temp;
+        }
+    }
 }

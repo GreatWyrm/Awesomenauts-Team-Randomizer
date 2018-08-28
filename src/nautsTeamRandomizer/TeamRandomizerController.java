@@ -25,7 +25,7 @@ public class TeamRandomizerController {
 	private PlayerSelectionGUI selectPlayerGUI;
 	private Awesomenaut[] awesomenauts;
 	private DisplayTeamGUI displayTeamGUI;
-	private final String DEFAULT_FILE_NAME = "playerdata.txt";
+	private final String DEFAULT_PLAYERS_FILE_NAME = "playerdata.txt";
 	
 	public TeamRandomizerController() {
 		mainGUI = new MainGUI(this);
@@ -140,10 +140,10 @@ public class TeamRandomizerController {
 		}
 	}
 	public void save() {
-		save(DEFAULT_FILE_NAME);
+		save(DEFAULT_PLAYERS_FILE_NAME);
 	}
 	public void load() {
-		load(DEFAULT_FILE_NAME);
+		load(DEFAULT_PLAYERS_FILE_NAME);
 	}
 	public void load(String filename) {
 		try {
@@ -160,7 +160,7 @@ public class TeamRandomizerController {
 		}
 	}
 	public void deleteFile() {
-		deleteFile(DEFAULT_FILE_NAME);
+		deleteFile(DEFAULT_PLAYERS_FILE_NAME);
 	}
 	public void deleteFile(String filename) {
 		File file = new File(filename);
