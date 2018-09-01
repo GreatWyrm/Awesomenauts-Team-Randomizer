@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import nautsTeamRandomizer.TeamRandomizerController;
+import nautsTeamRandomizer.Model.AwesomenautsMap;
 import nautsTeamRandomizer.Model.AwesomenautsPlayer;
 
 public class MainGUI extends JFrame {
@@ -35,10 +36,16 @@ public class MainGUI extends JFrame {
 	private DefaultListModel<AwesomenautsPlayer> playerListModel = new DefaultListModel<AwesomenautsPlayer>();
 	//  playerList - list to display the AwesomenautsPlayer objects
 	private JList<AwesomenautsPlayer> playerList = new JList<AwesomenautsPlayer>(playerListModel);
+	private JButton createMap = new JButton("Create Map");
+	private JButton deleteMap = new JButton("Delete Map");
+	private JButton editMap = new JButton("Edit Map");
+	private DefaultListModel<AwesomenautsMap> mapListModel = new DefaultListModel<AwesomenautsMap>();
+	private JList<AwesomenautsMap> mapList = new JList<AwesomenautsMap>(mapListModel);
 	// playerPanel - panel to hold all of the components related to players
 	private JPanel playerPanel = new JPanel();
 	// generationPanel - panel to hold all of the components related to team randomization 
 	private JPanel generationPanel = new JPanel();
+	private JPanel mapPanel = new JPanel();
 	// parentController - reference to the parent controller to call methods it in
 	private TeamRandomizerController parentController;
 	// labels - display static text describing the function of the program
@@ -52,7 +59,6 @@ public class MainGUI extends JFrame {
 	private JButton playerSelector0 = new JButton("Select Player");
 	private JButton playerSelector1 = new JButton("Select Player");
 	private JButton playerSelector2 = new JButton("Select Player");
-	//
 	private JTextField[] playerFields = new JTextField[3];
 	private AwesomenautsPlayer[] players = new AwesomenautsPlayer[3];
 	private JButton nautName0 = new JButton("Enter 'Naut Name");
@@ -86,6 +92,17 @@ public class MainGUI extends JFrame {
 		deletePlayer.setBounds(105, 700, 120, 25);
 		playerList.setBounds(10, 60, 300, 550);
 		playerLabel.setBounds(80, 0, 300, 50);
+		
+		add(mapPanel);
+		mapPanel.add(mapList);
+		mapPanel.add(createMap);
+		mapPanel.add(deleteMap);
+		mapPanel.add(editMap);
+		mapPanel.setLayout(null);
+		createMap.setBounds(35, 670, 120, 25);
+		editMap.setBounds(165, 670, 120, 25);
+		deleteMap.setBounds(105, 700, 120, 25);
+		mapList.setBounds(10, 60, 300, 550);
 		
 		add(generationPanel);
 		generationPanel.add(teamLabel);
@@ -174,19 +191,19 @@ public class MainGUI extends JFrame {
 		playerSelector0.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parentController.selectPlayer(0);
+				createSelectionGUI(0);
 			}
 		});
 		playerSelector1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parentController.selectPlayer(1);
+				createSelectionGUI(1);
 			}
 		});
 		playerSelector2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parentController.selectPlayer(2);
+				createSelectionGUI(2);
 			}
 		});
 		nautName0.addActionListener(new ActionListener() {
@@ -225,14 +242,14 @@ public class MainGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parentController.save();
+				parentController.savePlayers();
 				System.exit(0);		
 			}
 		});
 		menuSavePlayers.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parentController.save();
+				parentController.savePlayers();
 			}
 		});
 		menuSavePlayers.setToolTipText("Save the current player list");
@@ -269,7 +286,7 @@ public class MainGUI extends JFrame {
 			}
 		});
 		setLayout(new GridLayout());
-		setSize(1200, 850);
+		setSize(1600, 900);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -312,5 +329,8 @@ public class MainGUI extends JFrame {
             array[min] = array[i];
             array[i] = temp;
         }
+    }
+    private void createSelectionGUI(int num) {
+    	PlayerSelectionGUI gui = new PlayerSelectionGUI(this, playerListModel, num);
     }
 }

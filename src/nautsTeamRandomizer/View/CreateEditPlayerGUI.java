@@ -33,6 +33,7 @@ public class CreateEditPlayerGUI extends JFrame {
 	private JLabel creationInfo0 = new JLabel(
 			"-To create a player, enter in a name, select the Awesomenauts and skins you own, and then press Create Player");
 	private JPanel[] nautsPanel = new JPanel[NUM_OF_COLUMNS];
+	private String playerID;
 	GridLayout layout = new GridLayout(2, 1);
 	GridBagLayout gridBagLayout = new GridBagLayout();
 	GridBagConstraints constraints = new GridBagConstraints();
@@ -49,6 +50,7 @@ public class CreateEditPlayerGUI extends JFrame {
 		super("Edit Player");
 		createPlayer.setText("Save");
 		setupWindow(parent);
+		playerID = player.getPlayerID();
 		playerNameField.setText(player.getPlayerName());
 		for (int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
 			if (player.getHasNauts(i, 0)) {
@@ -137,6 +139,7 @@ public class CreateEditPlayerGUI extends JFrame {
 					AwesomenautsPlayer player = new AwesomenautsPlayer(playerNameField.getText(),
 							hasAllNautsBox.isSelected(), hasNauts);
 					if (createPlayer.getText().equals("Save")) {
+						player.setPlayerID(playerID);
 						parent.editPlayer(player);
 					} else {
 						parent.addNewPlayer(player);

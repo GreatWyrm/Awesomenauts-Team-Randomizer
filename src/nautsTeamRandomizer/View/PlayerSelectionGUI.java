@@ -15,22 +15,14 @@ import nautsTeamRandomizer.TeamRandomizerController;
 import nautsTeamRandomizer.Model.AwesomenautsPlayer;
 
 public class PlayerSelectionGUI extends JFrame {
-	private DefaultListModel<AwesomenautsPlayer> playerListModel = new DefaultListModel<AwesomenautsPlayer>();
-	private JList<AwesomenautsPlayer> playerList = new JList<AwesomenautsPlayer>(playerListModel);
-	private TeamRandomizerController parentController;
-	private int playerNum;
+	private JList<AwesomenautsPlayer> playerList;
 	private JButton selectPlayer = new JButton("Select");
 	
-	public PlayerSelectionGUI(TeamRandomizerController parent, AwesomenautsPlayer[] list, int num) {
+	public PlayerSelectionGUI(MainGUI parent, DefaultListModel<AwesomenautsPlayer> listModel, int num) {
 		super("Select Player");
-		
-		playerNum = num;
+		playerList = new JList<AwesomenautsPlayer>(listModel);
 		add(playerList);
 		add(selectPlayer);
-		parentController = parent;
-		for (AwesomenautsPlayer player : list) {
-			playerListModel.addElement(player);
-		}
 		selectPlayer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -39,7 +31,7 @@ public class PlayerSelectionGUI extends JFrame {
 					JOptionPane.showMessageDialog(playerList, "A player has not been selected", "No Selection Made",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
-					parentController.select(index, playerNum);
+					parent.playerSelect(listModel.getElementAt(index), num);
 					closeWindow();
 				}
 
