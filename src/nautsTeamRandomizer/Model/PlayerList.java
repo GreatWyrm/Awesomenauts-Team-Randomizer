@@ -10,7 +10,8 @@ public class PlayerList {
 		playerList = new ArrayList<AwesomenautsPlayer>();
 	}
 
-	public AwesomenautsPlayer removePlayer(int index) {
+	public AwesomenautsPlayer removePlayer(AwesomenautsPlayer player) {
+		int index = findPlayerByID(player.getPlayerID());
 		return playerList.remove(index);
 	}
 

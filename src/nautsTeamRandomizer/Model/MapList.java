@@ -3,6 +3,12 @@ package nautsTeamRandomizer.Model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import nautsTeamRandomizer.DefaultMaps.AI_Station_205;
+import nautsTeamRandomizer.DefaultMaps.AI_Station_404;
+import nautsTeamRandomizer.DefaultMaps.Aiguillon;
+import nautsTeamRandomizer.DefaultMaps.Ribbit_IV;
+import nautsTeamRandomizer.DefaultMaps.Starstorm;
+
 public class MapList {
 	private ArrayList<AwesomenautsMap> mapList;
 
@@ -94,5 +100,15 @@ public class MapList {
 			}
 			map.setMapID(ID);
 		}
+	}
+	public void postLoad() {
+		if(mapList.isEmpty()) {
+			mapList.add(new AI_Station_205());
+			mapList.add(new AI_Station_404());
+			mapList.add(new Aiguillon());
+			mapList.add(new Ribbit_IV());
+			mapList.add(new Starstorm());
+		}
+		
 	}
 }

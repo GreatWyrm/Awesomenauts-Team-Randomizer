@@ -42,8 +42,8 @@ public class TeamRandomizerController {
 		playerList.addPlayer(newPlayer);
 		mainGUI.updatePlayerList(playerList.getPlayerList());
 	}
-	public void deletePlayer(int index) {
-		playerList.removePlayer(index);
+	public void deletePlayer(AwesomenautsPlayer player) {
+		playerList.removePlayer(player);
 		mainGUI.updatePlayerList(playerList.getPlayerList());
 	}
 	public void edit(AwesomenautsPlayer player) {
@@ -162,10 +162,12 @@ public class TeamRandomizerController {
 				line = reader.readLine();
 			}
 			reader.close();
-			mainGUI.updatePlayerList(playerList.getPlayerList());
+			mainGUI.updateMapList(mapList.getMapList());
 		} catch(Exception e) {
 
 		}
+		mapList.postLoad();
+		mainGUI.updateMapList(mapList.getMapList());
 	}
 	public void deleteFile() {
 		deleteFile(DEFAULT_PLAYERS_FILE_NAME);

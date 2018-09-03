@@ -114,4 +114,7 @@ public class AwesomenautsMap {
 		System.out.print(result);
 		return result;
 	}
+	public String toString() {
+		return mapName;
+	}
 }

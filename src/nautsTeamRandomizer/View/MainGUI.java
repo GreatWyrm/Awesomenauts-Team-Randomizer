@@ -3,6 +3,7 @@ package nautsTeamRandomizer.View;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -183,9 +184,40 @@ public class MainGUI extends JFrame {
 					JOptionPane.showMessageDialog(playerList, "A player has not been selected", "No Selection Made",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
-					parentController.deletePlayer(index);
+					parentController.deletePlayer(playerListModel.getElementAt(index));
 				}
 
+			}
+		});
+		createMap.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		editMap.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		deleteMap.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int index = mapList.getSelectedIndex();
+				if (index == -1) {
+					JOptionPane.showMessageDialog(mapList, "A map has not been selected", "No Selection Made",
+							JOptionPane.WARNING_MESSAGE);
+				} else {
+					//parentController.deleteMap(index);
+				}
+
+				
 			}
 		});
 		playerSelector0.addActionListener(new ActionListener() {
@@ -299,6 +331,13 @@ public class MainGUI extends JFrame {
 		playerListModel.clear();
 		for (AwesomenautsPlayer player : list) {
 			playerListModel.addElement(player);
+		}
+		reset();
+	}
+	public void updateMapList(AwesomenautsMap[] list) {
+		mapListModel.clear();
+		for(AwesomenautsMap map : list) {
+			mapListModel.addElement(map);
 		}
 		reset();
 	}

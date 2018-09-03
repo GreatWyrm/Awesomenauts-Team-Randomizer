@@ -4,7 +4,7 @@
 /**
  * @author Giginss
  * @startDate 5/30/2018
- * @version 1.1.7
+ * @version 1.1.8
  *
  */
 /** TO-DO

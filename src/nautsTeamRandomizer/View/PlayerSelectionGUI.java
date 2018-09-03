@@ -11,9 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-import nautsTeamRandomizer.TeamRandomizerController;
 import nautsTeamRandomizer.Model.AwesomenautsPlayer;
 
+@SuppressWarnings("serial")
 public class PlayerSelectionGUI extends JFrame {
 	private JList<AwesomenautsPlayer> playerList;
 	private JButton selectPlayer = new JButton("Select");
