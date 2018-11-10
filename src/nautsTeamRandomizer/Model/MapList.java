@@ -16,7 +16,8 @@ public class MapList {
 		mapList = new ArrayList<AwesomenautsMap>();
 	}
 
-	public AwesomenautsMap removePlayer(int index) {
+	public AwesomenautsMap removeMap(AwesomenautsMap map) {
+		int index = findMapByID(map.getMapID());
 		return mapList.remove(index);
 	}
 
@@ -49,14 +50,14 @@ public class MapList {
 		return temp;
 	}
 
-	public boolean hasNoPlayers() {
+	public boolean hasNoMaps() {
 		return mapList.isEmpty();
 	}
 
 	public String encodeAllMaps() {
 		String encodedMaps = "";
 		for (AwesomenautsMap map : mapList) {
-			encodedMaps = map.encode() + "\n";
+			encodedMaps += map.encode() + "\n";
 		}
 		return encodedMaps;
 	}
@@ -71,7 +72,7 @@ public class MapList {
 	}
 
 	private boolean noMatchingID(String ID) {
-		if (hasNoPlayers()) {
+		if (hasNoMaps()) {
 			return true;
 		}
 		for (AwesomenautsMap map : mapList) {
@@ -103,11 +104,11 @@ public class MapList {
 	}
 	public void postLoad() {
 		if(mapList.isEmpty()) {
-			mapList.add(new AI_Station_205());
-			mapList.add(new AI_Station_404());
-			mapList.add(new Aiguillon());
-			mapList.add(new Ribbit_IV());
-			mapList.add(new Starstorm());
+			addMap(new AI_Station_205());
+			addMap(new AI_Station_404());
+			addMap(new Aiguillon());
+			addMap(new Ribbit_IV());
+			addMap(new Starstorm());
 		}
 		
 	}

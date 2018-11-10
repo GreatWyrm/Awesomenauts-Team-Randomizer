@@ -51,7 +51,7 @@ public class PlayerList {
 	public String encodeAllPlayers() {
 		String encodedPlayers = "";
 		for (AwesomenautsPlayer player : playerList) {
-			encodedPlayers = player.encode() + "\n";
+			encodedPlayers += player.encode() + "\n";
 		}
 		return encodedPlayers;
 	}

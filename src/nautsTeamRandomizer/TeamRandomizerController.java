@@ -15,6 +15,7 @@ import nautsTeamRandomizer.Model.AwesomenautsMap;
 import nautsTeamRandomizer.Model.AwesomenautsPlayer;
 import nautsTeamRandomizer.Model.MapList;
 import nautsTeamRandomizer.Model.PlayerList;
+import nautsTeamRandomizer.View.CreateEditMapGUI;
 import nautsTeamRandomizer.View.CreateEditPlayerGUI;
 import nautsTeamRandomizer.View.DisplayTeamGUI;
 import nautsTeamRandomizer.View.MainGUI;
@@ -38,6 +39,9 @@ public class TeamRandomizerController {
 	public void createNewPlayerGUI() {
 		CreateEditPlayerGUI createEditPlayerGUI = new CreateEditPlayerGUI(this);
 	}
+	public void createNewMapGUI() {
+		CreateEditMapGUI createEditMapGUI = new CreateEditMapGUI(this);
+	}
 	public void addNewPlayer(AwesomenautsPlayer newPlayer) {
 		playerList.addPlayer(newPlayer);
 		mainGUI.updatePlayerList(playerList.getPlayerList());
@@ -46,8 +50,19 @@ public class TeamRandomizerController {
 		playerList.removePlayer(player);
 		mainGUI.updatePlayerList(playerList.getPlayerList());
 	}
-	public void edit(AwesomenautsPlayer player) {
+	public void addNewMap(AwesomenautsMap newMap) {
+		mapList.addMap(newMap);
+		mainGUI.updateMapList(mapList.getMapList());
+	}
+	public void deleteMap(AwesomenautsMap map) {
+		mapList.removeMap(map);
+		mainGUI.updateMapList(mapList.getMapList());
+	}
+	public void editPlayerCreateGUI(AwesomenautsPlayer player) {
 		CreateEditPlayerGUI createEditPlayerGUI = new CreateEditPlayerGUI(this, player);
+	}
+	public void editMapCreateGUI(AwesomenautsMap map) {
+		CreateEditMapGUI createEditMapGUI = new CreateEditMapGUI(this, map);
 	}
 	public AwesomenautsPlayer getPlayer(int index) {
 		return playerList.getPlayer(index);
@@ -58,6 +73,10 @@ public class TeamRandomizerController {
 	public void editPlayer(AwesomenautsPlayer player) {
 		playerList.overwritePlayer(player);
 		mainGUI.updatePlayerList(playerList.getPlayerList());
+	}
+	public void editMap(AwesomenautsMap map) {
+		mapList.overwriteMap(map);
+		mainGUI.updateMapList(mapList.getMapList());
 	}
 	public String addRestrictedNaut0(String nautName) {
 		if(nautName.toLowerCase().equals("bas the angry cheese farmer")) {
@@ -168,6 +187,18 @@ public class TeamRandomizerController {
 		}
 		mapList.postLoad();
 		mainGUI.updateMapList(mapList.getMapList());
+	}
+	public void saveMaps(String filename) {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+			writer.write(mapList.encodeAllMaps());
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void saveMaps() {
+		saveMaps(DEFAULT_MAPS_FILE_NAME);
 	}
 	public void deleteFile() {
 		deleteFile(DEFAULT_PLAYERS_FILE_NAME);

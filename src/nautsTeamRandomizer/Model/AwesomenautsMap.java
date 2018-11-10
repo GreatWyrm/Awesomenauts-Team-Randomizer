@@ -5,22 +5,13 @@ public class AwesomenautsMap {
 	private boolean supportsNormalPlay;
 	private boolean supportsTDMPlay;
 	private boolean isCustomGamemode;
-	private boolean isDefaultMap;
 	private String mapID;
 	
-	public AwesomenautsMap(String name, boolean supportsNormal, boolean supportsTDM, boolean isCustom, boolean isDefault) {
-		mapName = name;
-		supportsNormalPlay = supportsNormal;
-		supportsTDMPlay = supportsTDM;
-		isCustomGamemode = isCustom;
-		isDefaultMap = isDefault;
-	}
 	public AwesomenautsMap(String name, boolean supportsNormal, boolean supportsTDM, boolean isCustom) {
 		mapName = name;
 		supportsNormalPlay = supportsNormal;
 		supportsTDMPlay = supportsTDM;
 		isCustomGamemode = isCustom;
-		isDefaultMap = false;
 	}
 	public AwesomenautsMap(String encodedMap) {
 		mapName = encodedMap.substring(0, encodedMap.indexOf(':'));
@@ -42,11 +33,8 @@ public class AwesomenautsMap {
 				} else if(booleanCount == 2) {
 					isCustomGamemode = true;
 					booleanCount++;
-				} else if(booleanCount == 3) {
-					isDefaultMap = true;
-					booleanCount++;
 				} else {
-					
+					throw new IllegalStateException("Error when loading the maps, too many booleans for map: " + mapName);
 				}
 			} else if(current.equals("false")) {
 				if(booleanCount == 0) {
@@ -58,14 +46,11 @@ public class AwesomenautsMap {
 				} else if(booleanCount == 2) {
 					isCustomGamemode = false;
 					booleanCount++;
-				} else if(booleanCount == 3) {
-					isDefaultMap = false;
-					booleanCount++;
 				} else {
-					
+					throw new IllegalStateException("Error when loading the maps, too many booleans for map: " + mapName);
 				}
 			} else {
-				
+				throw new IllegalStateException("Error when loading the maps, illegal argument for map: " + mapName);
 			}
 		}
 	}
@@ -99,19 +84,11 @@ public class AwesomenautsMap {
 	public void setCustomGamemode(boolean isCustomGamemode) {
 		this.isCustomGamemode = isCustomGamemode;
 	}
-	public boolean isDefaultMap() {
-		return isDefaultMap;
-	}
-	public void setDefaultMap(boolean isDefaultMap) {
-		this.isDefaultMap = isDefaultMap;
-	}
 	public String encode() {
 		String result = mapName + ":";
 		result += supportsNormalPlay + " ";
 		result += supportsTDMPlay + " ";
 		result += isCustomGamemode + " ";
-		result += isDefaultMap;
-		System.out.print(result);
 		return result;
 	}
 	public String toString() {

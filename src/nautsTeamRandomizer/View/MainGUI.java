@@ -66,7 +66,7 @@ public class MainGUI extends JFrame {
 	private JButton nautName2 = new JButton("Enter 'Naut Name");
 	private JButton generateTeam = new JButton("Randomize!");
 	private JButton clear = new JButton("Clear Selection");
-	private JButton saveExit = new JButton("Save Players and Exit");
+	private JButton saveExit = new JButton("Save and Exit");
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu menuPlayer = new JMenu("Players");
 	private JMenu menuGeneration = new JMenu("Generation Settings");
@@ -172,7 +172,7 @@ public class MainGUI extends JFrame {
 					JOptionPane.showMessageDialog(playerList, "A player has not been selected", "No Selection Made",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
-					parentController.edit(playerListModel.get(index));
+					parentController.editPlayerCreateGUI(playerListModel.get(index));
 				}
 			}
 		});
@@ -184,7 +184,7 @@ public class MainGUI extends JFrame {
 					JOptionPane.showMessageDialog(playerList, "A player has not been selected", "No Selection Made",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
-					parentController.deletePlayer(playerListModel.getElementAt(index));
+					parentController.deletePlayer(playerListModel.get(index));
 				}
 
 			}
@@ -193,16 +193,20 @@ public class MainGUI extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				parentController.createNewMapGUI();
 			}
 		});
 		editMap.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				int index = mapList.getSelectedIndex();
+				if (index == -1) {
+					JOptionPane.showMessageDialog(mapList, "A map has not been selected", "No Selection Made",
+							JOptionPane.WARNING_MESSAGE);
+				} else {
+					parentController.editMapCreateGUI(mapListModel.get(index));
+				}
 			}
 		});
 		deleteMap.addActionListener(new ActionListener() {
@@ -214,7 +218,7 @@ public class MainGUI extends JFrame {
 					JOptionPane.showMessageDialog(mapList, "A map has not been selected", "No Selection Made",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
-					//parentController.deleteMap(index);
+					parentController.deleteMap(mapListModel.get(index));
 				}
 
 				
@@ -275,6 +279,7 @@ public class MainGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				parentController.savePlayers();
+				parentController.saveMaps();
 				System.exit(0);		
 			}
 		});
