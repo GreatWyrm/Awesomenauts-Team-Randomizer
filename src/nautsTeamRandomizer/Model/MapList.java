@@ -102,6 +102,48 @@ public class MapList {
 			map.setMapID(ID);
 		}
 	}
+	/**
+	 * Gives a random map from the list - no parameters
+	 */
+	public AwesomenautsMap getRandomMap() {
+		return getRandomMap("");
+	}
+	/**
+	 * Gives a random map from the list
+	 * Accepted Parameters:
+	 * "Normal" - Normal Awesomenauts Play
+	 * "TDM" or "TeamDeathMatch" - Team Deathmatch Play
+	 * "Custom" - Custom Gameplay Mode
+	 */
+	public AwesomenautsMap getRandomMap(String parameters) {
+		ArrayList<AwesomenautsMap> templist = new ArrayList<AwesomenautsMap>();
+		Random random = new Random();
+		parameters = parameters.toLowerCase();
+		if(parameters.equals(""))
+			return mapList.get(random.nextInt(mapList.size()));
+		else if(parameters.equals("normal")) {
+			for(AwesomenautsMap map : mapList) {
+				if(map.isSupportsNormalPlay()) {
+					templist.add(map);
+				}
+			}
+		} else if(parameters.equals("tdm") || parameters.equals("teamdeathmatch")) {
+			for(AwesomenautsMap map : mapList) {
+				if(map.isSupportsTDMPlay()) {
+					templist.add(map);
+				}
+			}
+		} else if(parameters.equals("custom")) {
+			for(AwesomenautsMap map : mapList) {
+				if(map.isCustomGamemode()) {
+					templist.add(map);
+				}
+			}
+		} else {
+			return null;
+		}
+		return templist.get(random.nextInt(templist.size()));
+	}
 	public void postLoad() {
 		if(mapList.isEmpty()) {
 			addMap(new AI_Station_205());

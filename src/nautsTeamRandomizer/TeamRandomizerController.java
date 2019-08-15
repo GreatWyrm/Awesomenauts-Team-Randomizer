@@ -78,42 +78,27 @@ public class TeamRandomizerController {
 		mapList.overwriteMap(map);
 		mainGUI.updateMapList(mapList.getMapList());
 	}
-	public String addRestrictedNaut0(String nautName) {
-		if(nautName.toLowerCase().equals("bas the angry cheese farmer")) {
+	public Awesomenaut getAwesomenaut(String name) {
+		if(name.toLowerCase().equals("bas the angry cheese farmer")) {
 			JOptionPane.showMessageDialog(null, "Seriously?", "Easter Egg Found", JOptionPane.WARNING_MESSAGE);
-			return "";
+			return null;
 		}
 		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
-			if(AwesomenautsInfo.AWESOMENAUTS[i].matchesNautName(nautName)) {
-				awesomenauts[0] = AwesomenautsInfo.AWESOMENAUTS[i];
-				return awesomenauts[0].getNautName();
+			if(AwesomenautsInfo.AWESOMENAUTS[i].matchesNautName(name)) {
+				return AwesomenautsInfo.AWESOMENAUTS[i];
 			}
 		}
 		JOptionPane.showMessageDialog(null, "No Awesomenaut matches the name you entered\nPlease try again", "No Matches Found",
 				JOptionPane.WARNING_MESSAGE);
-		return "";
-	}
-	public String addRestrictedNaut1(String nautName) {
-		if(nautName.toLowerCase().equals("bas the angry cheese farmer")) {
-			JOptionPane.showMessageDialog(null, "Seriously?", "Easter Egg Found", JOptionPane.WARNING_MESSAGE);
-			return "";
-		}
-		for(int i = 0; i < AwesomenautsInfo.NUM_OF_NAUTS; i++) {
-			if(AwesomenautsInfo.AWESOMENAUTS[i].matchesNautName(nautName)) {
-				awesomenauts[2] = AwesomenautsInfo.AWESOMENAUTS[i];
-				return awesomenauts[2].getNautName();
-			}
-		}
-		JOptionPane.showMessageDialog(null, "No Awesomenaut matches the name you entered", "No Matches Found",
-				JOptionPane.WARNING_MESSAGE);
-		return "";
+		return null;
 	}
 	public void clearSelection() {
 		for(int i = 0; i < awesomenauts.length; i++) {
 			awesomenauts[i] = null; 
 		}
 	}
-	public void randomizeTeam(AwesomenautsPlayer[] players, boolean useSkins) {
+	public void randomizeTeam(Awesomenaut[] preSetNauts, AwesomenautsPlayer[] players, boolean useSkins) {
+		awesomenauts = preSetNauts;
 		for(int i = 0; i < players.length; i++) {
 			if(players[i] != null) {
 				awesomenauts[i] = generateNaut(players[i], i);

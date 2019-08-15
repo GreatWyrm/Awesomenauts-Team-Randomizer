@@ -92,6 +92,7 @@ public class CreateEditPlayerGUI extends JFrame {
 		add(creationInfo0, constraints);
 		constraints.gridwidth = 1;
 
+		constraints.fill = GridBagConstraints.VERTICAL;
 		constraints.gridx = 0;
 		constraints.gridy = 5;
 		constraints.gridwidth = 1;

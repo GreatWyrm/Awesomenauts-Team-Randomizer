@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+import nautsTeamRandomizer.AwesomenautData.Awesomenaut;
 import nautsTeamRandomizer.TeamRandomizerController;
 import nautsTeamRandomizer.Model.AwesomenautsMap;
 import nautsTeamRandomizer.Model.AwesomenautsPlayer;
@@ -76,6 +77,7 @@ public class MainGUI extends JFrame {
 	private JMenuItem menuSortAscending = new JMenuItem("Sort Players Alphabetically Ascending");
 	private JMenuItem menuSortDescending = new JMenuItem("Sort Players Alphabetically Descending");
 	private JCheckBoxMenuItem menuUseSkins = new JCheckBoxMenuItem("Use Skins");
+	private Awesomenaut[] selectedAwesomenauts = new Awesomenaut[3];
 	
 	public MainGUI(TeamRandomizerController parent) {
 		super("Awesomenaut Team Randomizer");
@@ -245,27 +247,30 @@ public class MainGUI extends JFrame {
 		nautName0.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String result = parentController.addRestrictedNaut0(playerFields[0].getText());
-				if(!result.equals("")) {
-					playerFields[0].setText(result);
+				Awesomenaut result = findNaut(playerFields[0].getText());
+				if(result != null) {
+					playerFields[0].setText(result.getNautName());
 					playerFields[0].setEditable(false);
+					selectedAwesomenauts[0] = result;
 				}
 			}
 		});
 		nautName2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String result = parentController.addRestrictedNaut1(playerFields[2].getText());
+				Awesomenaut result = findNaut(playerFields[2].getText());
 				if(!result.equals("")) {
-					playerFields[2].setText(result);
+					playerFields[2].setText(result.getNautName());
 					playerFields[2].setEditable(false);
+					selectedAwesomenauts[2] = result;
 				}
 			}
 		});
 		generateTeam.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					parentController.randomizeTeam(players, menuUseSkins.isSelected());	
+
+				parentController.randomizeTeam(selectedAwesomenauts, players, menuUseSkins.isSelected());
 			}
 		});
 		clear.addActionListener(new ActionListener() {
@@ -356,6 +361,7 @@ public class MainGUI extends JFrame {
 			players[i] = null;
 			playerFields[i].setEditable(true);
 			playerFields[i].setText("");
+			selectedAwesomenauts[i] = null;
 		}
 		parentController.clearSelection();
 	}
@@ -377,4 +383,7 @@ public class MainGUI extends JFrame {
     private void createSelectionGUI(int num) {
     	PlayerSelectionGUI gui = new PlayerSelectionGUI(this, playerListModel, num);
     }
+    private Awesomenaut findNaut(String name) {
+		return parentController.getAwesomenaut(name);
+	}
 }
